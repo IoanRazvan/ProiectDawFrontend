@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { GoogleLoginProvider, SocialAuthService } from "angularx-social-login";
 import { ValidationConstants } from "src/app/constants/validation.constants";
 
@@ -9,7 +8,6 @@ import { ValidationConstants } from "src/app/constants/validation.constants";
     templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent implements OnInit {
-    faGoogle = faGoogle;
     form : FormGroup;
     validationConstants = ValidationConstants;
 
