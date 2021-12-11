@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormInputComponent } from 'src/app/components/form-input/form-input.component';
 import { DeCamelCasePipe } from './pipes/de-camel-case.pipe';
@@ -22,9 +24,23 @@ import { FormatValidationMessagePipe } from './pipes/format-validation-message.p
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
+    SocialLoginModule,
     ReactiveFormsModule
   ],
   providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider("126630284623-c5u4jms1uf8oe4n30a60dvd7ol54ciop.apps.googleusercontent.com")
+          }
+        ]
+      } as SocialAuthServiceConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { GoogleLoginProvider, SocialAuthService } from "angularx-social-login";
 import { ValidationConstants } from "src/app/constants/validation.constants";
 
 @Component({
@@ -7,10 +9,12 @@ import { ValidationConstants } from "src/app/constants/validation.constants";
     templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent implements OnInit {
+    faGoogle = faGoogle;
     form : FormGroup;
     validationConstants = ValidationConstants;
 
     constructor(
+        private socialAuthService: SocialAuthService,
         fb: FormBuilder
     ) {
         this.form = fb.group({
@@ -30,4 +34,9 @@ export class SignUpComponent implements OnInit {
         })
     }
 
+    logInWithGoogle() {
+        console.log(this.socialAuthService);
+        this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+            .then(() => console.log('logged in'));
+    }
 }
