@@ -27,6 +27,9 @@ export class SignUpComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.socialAuthService.authState.subscribe((user) => {
+            console.log(user);
+        })
         this.form.controls['password'].valueChanges.subscribe(() => {
             const confirmPasswordControl = this.form.controls['confirmPassword']
             confirmPasswordControl.setValidators([Validators.required, Validators.pattern(`^${this.form.controls['password'].value}\$`)]);
