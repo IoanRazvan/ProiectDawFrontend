@@ -1,0 +1,12 @@
+<div class="container border border-1 mt-2 col-md-8">
+    <legend>Log In</legend>
+    <form class="row gy-3">
+        <form-input [inputModel]="$any(form.controls['email'])" name="email" [errorMessage]="validationConstants.EMAIL"></form-input>
+        <form-input [inputModel]="$any(form.controls['password'])" name="password" [errorMessage]="validationConstants.MIN_LENGTH | formatValidationMessage:'6'" [type]="'password'"></form-input>
+        <dismissable-alert *ngIf="form.errors?.['message']" [text]="form.errors?.['message']" (onDismiss)="form.setErrors(null)"></dismissable-alert>
+        <div class="col-auto mb-3">
+            <submit-button [disabled]="form.invalid" [submitting]="submitting" (onSubmit)="onSubmit()">
+            </submit-button>
+        </div>
+    </form>
+</div>

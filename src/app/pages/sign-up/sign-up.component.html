@@ -22,7 +22,7 @@
         </div>
         <dismissable-alert *ngIf="form.errors?.['message']" [text]="form.errors?.['message']" (onDismiss)="form.setErrors(null)"></dismissable-alert>
         <div class="col-auto mb-3">
-            <submit-button [disabled]="form.invalid || submitting" [submitting]="submitting" (onSubmit)="onSubmit()">
+            <submit-button [disabled]="form.invalid" [submitting]="submitting" (onSubmit)="onSubmit()">
             </submit-button>
         </div>
     </form>
