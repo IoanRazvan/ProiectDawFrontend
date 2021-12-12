@@ -1,43 +1,29 @@
 <div class="container border border-1 mt-2 col-md-8">
     <legend>Sign Up</legend>
-    <form class="row gy-2">
+    <form class="row gy-3">
         <div class="col-md-6">
-            <form-input
-                [name]="'firstName'"
-                [inputModel]="$any(form.controls['firstName'])"
-                [errorMessage]="validationConstants.REQUIRED"   
-            ></form-input>
+            <form-input [name]="'firstName'" [inputModel]="$any(form.controls['firstName'])"
+                [errorMessage]="validationConstants.REQUIRED"></form-input>
         </div>
         <div class="col-md-6">
-            <form-input
-                [name]="'lastName'"
-                [inputModel]="$any(form.controls['lastName'])"
-                [errorMessage]="validationConstants.REQUIRED"
-            ></form-input>  
+            <form-input [name]="'lastName'" [inputModel]="$any(form.controls['lastName'])"
+                [errorMessage]="validationConstants.REQUIRED"></form-input>
         </div>
-        <form-input
-            [name]="'email'"
-            [inputModel]="$any(form.controls['email'])"
-            [errorMessage]="validationConstants.EMAIL"
-        ></form-input>
+        <form-input [name]="'email'" [inputModel]="$any(form.controls['email'])"
+            [errorMessage]="validationConstants.EMAIL"></form-input>
         <div class="col-md-6">
-            <form-input
-                [name]="'password'"
-                [inputModel]="$any(form.controls['password'])"
-                [type]="'password'"
-                [errorMessage]="validationConstants.MIN_LENGTH | formatValidationMessage:'6'"    
-            ></form-input>
+            <form-input [name]="'password'" [inputModel]="$any(form.controls['password'])" [type]="'password'"
+                [errorMessage]="validationConstants.MIN_LENGTH | formatValidationMessage:'6'"></form-input>
         </div>
         <div class="col-md-6">
-            <form-input
-                [name]="'confirmPassword'"
-                [inputModel]="$any(form.controls['confirmPassword'])"
-                [type]="'password'"
-                [errorMessage]="validationConstants.SAME | formatValidationMessage:'password'"    
-            ></form-input>
+            <form-input [name]="'confirmPassword'" [inputModel]="$any(form.controls['confirmPassword'])"
+                [type]="'password'" [errorMessage]="validationConstants.SAME | formatValidationMessage:'password'">
+            </form-input>
         </div>
-        <div class="col-auto my-3">
-            <button type="submit" class="btn btn-primary me-2" [disabled]="!form.valid">Submit</button>
+        <dismissable-alert *ngIf="form.errors?.['message']" [text]="form.errors?.['message']" (onDismiss)="form.setErrors(null)"></dismissable-alert>
+        <div class="col-auto mb-3">
+            <submit-button [disabled]="form.invalid || submitting" [submitting]="submitting" (onSubmit)="onSubmit()">
+            </submit-button>
         </div>
     </form>
 </div>

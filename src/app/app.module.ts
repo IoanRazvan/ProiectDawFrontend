@@ -9,6 +9,11 @@ import { DeCamelCasePipe } from './pipes/de-camel-case.pipe';
 import { LandingComponent } from './pages/landing/landing.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { FormatValidationMessagePipe } from './pipes/format-validation-message.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './services/user.service';
+import { SessionService } from './services/session.service';
+import { FormSubmissionButtonComponent } from './components/form-submission-button/form-submission-button.component';
+import { DismissableAlertComponent } from './components/dismissable-alert/dismissable-alert.component';
 
 @NgModule({
   declarations: [
@@ -16,15 +21,20 @@ import { FormatValidationMessagePipe } from './pipes/format-validation-message.p
     LandingComponent,
     SignUpComponent,
     FormInputComponent,
+    FormSubmissionButtonComponent,
     DeCamelCasePipe,
-    FormatValidationMessagePipe
+    FormatValidationMessagePipe,
+    DismissableAlertComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
+    UserService,
+    SessionService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 <label for="{{name}}" class="form-label">{{name | deCamelCase}}</label>
 <input type="{{type}}" class="form-control" [class.is-invalid]="inputModel.invalid && inputModel.dirty" [formControl]="inputModel" id="{{name}}">
 <span class="invalid-feedback">
-    {{errorMessage}}
+    {{ inputModel?.errors?.['message'] || errorMessage }}
 </span>

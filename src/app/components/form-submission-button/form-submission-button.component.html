@@ -1,0 +1,9 @@
+<button type="submit" class="btn btn-primary" [disabled]="disabled" (click)="onClick()">
+    <div *ngIf="submitting; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </ng-template>
+    <ng-template #elseBlock>
+        Submit
+    </ng-template>
+</button>
