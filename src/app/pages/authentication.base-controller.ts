@@ -19,7 +19,7 @@ export class AuthetnticationBase {
 
     onSubmitSuccess() {
         this.submitting = false;
-        this.router.navigate(['/home']);
+        this.router.navigate(['/app']);
     }
 
     onSubmitError(err: any) {

@@ -15,6 +15,8 @@ import { SessionService } from './services/session.service';
 import { FormSubmissionButtonComponent } from './components/form-submission-button/form-submission-button.component';
 import { DismissableAlertComponent } from './components/dismissable-alert/dismissable-alert.component';
 import { LogInComponent } from './pages/log-in/log-in.component';
+import { AuthorizedModule } from './authorized/authorized.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { LogInComponent } from './pages/log-in/log-in.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthorizedModule,
+    FontAwesomeModule
   ],
   providers: [
     UserService,

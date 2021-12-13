@@ -1,0 +1,7 @@
+<ul class="nav sticky-top justify-content-center border-bottom border-1" style="background-color: white">
+    <li class="nav-item me-4" *ngFor="let navItem of navItems" style="font-size: 1.5em;">
+        <a class="nav-link" [routerLink]="[navItem.link]">
+            <fa-icon [icon]="navItem.icon"></fa-icon>
+        </a>
+    </li>
+</ul>
