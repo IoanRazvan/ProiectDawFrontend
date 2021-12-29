@@ -8,6 +8,9 @@ import { FormatValidationMessagePipe } from './pipes/format-validation-message.p
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AppHeaderComponent } from './components/header/header.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CenteredMessageComponent } from './components/centered-message/centered-message.component';
 
 
 
@@ -16,6 +19,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DismissableAlertComponent,
     FormInputComponent,
     FormSubmissionButtonComponent,
+    AppHeaderComponent,
+    SpinnerComponent,
+    CenteredMessageComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
   ],
@@ -28,6 +34,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DismissableAlertComponent,
     FormInputComponent,
     FormSubmissionButtonComponent,
+    AppHeaderComponent,
+    SpinnerComponent,
+    CenteredMessageComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
     CommonModule,
