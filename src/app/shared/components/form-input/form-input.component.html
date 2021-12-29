@@ -1,0 +1,11 @@
+<label for="{{name}}" class="form-label">{{name | deCamelCase}}</label>
+<div *ngIf="inputType === 'input' then thenClause else elseClause"></div>
+<ng-template #thenClause>
+    <input type="{{type}}" class="form-control" [class.is-invalid]="inputModel.invalid && inputModel.dirty" [formControl]="$any(inputModel)" id="{{name}}">
+</ng-template>
+<ng-template #elseClause>
+    <textarea class="form-control" [class.is-invalid]="inputModel.invalid && inputModel.dirty" [formControl]="$any(inputModel)" id="{{name}}"></textarea>
+</ng-template>
+<span class="invalid-feedback">
+    {{ inputModel?.errors?.['message'] || errorMessage }}
+</span>

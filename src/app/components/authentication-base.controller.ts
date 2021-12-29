@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ValidationConstants } from "../constants/validation.constants";
-import { UserService } from "../services/user.service";
+import { UserService } from "../core/services/user.service";
 
 export class AuthetnticationBase {
     form: FormGroup;

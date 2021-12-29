@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { DirectLogInUser } from "src/app/models/user.models";
-import { UserService } from "src/app/services/user.service";
-import { AuthetnticationBase } from "../authentication.base-controller";
+import { DirectLogInUser } from "src/app/models/direct-log-in-user.model";
+import { UserService } from "src/app/core/services/user.service";
+import { AuthetnticationBase } from "../authentication-base.controller";
 
 @Component({
     selector: 'log-in',

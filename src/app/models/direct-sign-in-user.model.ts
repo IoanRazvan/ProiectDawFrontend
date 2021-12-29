@@ -4,8 +4,3 @@ export interface DirectSignInUser {
     email: string;
     password: string;
 }
-
-export interface DirectLogInUser {
-    email: string;
-    password: string;
-}

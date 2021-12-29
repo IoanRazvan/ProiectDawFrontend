@@ -8,8 +8,10 @@ export class FormSubmissionButtonComponent {
     @Input() submitting!: boolean;
     @Input() disabled!: boolean;
     @Output() onSubmit = new EventEmitter<any>();
+    @Input() text: string = "Submit";
 
-    onClick() {
+    onClick() : boolean {
         this.onSubmit.emit();
+        return false;
     }
 }
