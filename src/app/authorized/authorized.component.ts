@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { faBook, faCog, faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faHome, faSearch, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { NavItem } from "./components/navbar/navbar.component";
 
 @Component({
@@ -10,7 +10,7 @@ export class AuthorizedComponent {
     navItems: NavItem[] = [
         {icon: faHome, link: '/app'},
         {icon: faSearch, link: 'search'},
-        {icon: faBook, link: 'uploads'},
+        {icon: faUpload, link: 'uploads'},
         {icon: faCog, link: 'settings'}
     ];
 }

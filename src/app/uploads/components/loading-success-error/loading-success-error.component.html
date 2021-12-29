@@ -1,0 +1,11 @@
+<app-spinner *ngIf="loading else elseClause"></app-spinner>
+<ng-template #elseClause>
+    <div *ngIf="error then errorClause else successClause">
+    </div>
+    <ng-template #errorClause>
+        <ng-content select="[error]"></ng-content>
+    </ng-template>
+    <ng-template #successClause>
+        <ng-content #success select="[success]"></ng-content>
+    </ng-template>
+</ng-template>

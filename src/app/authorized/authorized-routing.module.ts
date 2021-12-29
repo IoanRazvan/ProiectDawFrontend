@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./pages/home/home.compoent";
+import { UploadsComponent } from "../uploads/uploads.component";
 
 export const authorizedRoutes : Routes = [
-    {path: '', component: HomeComponent}
+    {path: 'uploads', component: UploadsComponent}
 ]
 
 @NgModule({

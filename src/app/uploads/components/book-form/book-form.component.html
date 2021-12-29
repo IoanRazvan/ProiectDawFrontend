@@ -1,0 +1,23 @@
+<div class="card card-body">
+    <form class="row gy-2">
+        <form-input [inputModel]="form.controls['title']" name="title"
+            [errorMessage]="validationConstants.REQUIRED"></form-input>
+        <form-input [inputModel]="form.controls['authorName']" name="authorName"
+            [errorMessage]="validationConstants.REQUIRED"></form-input>
+        <form-input [inputModel]="form.controls['coverUrl']" name="coverUrl"
+            [errorMessage]="validationConstants.REQUIRED"></form-input>
+        <form-input [inputType]="'area'" [inputModel]="form.controls['description']" name="description">
+        </form-input>
+        <book-form-genre-select [inputModel]="form.controls['genres']"></book-form-genre-select>
+        <div>
+            <input #file type="file" class="form-control" (change)="onFileSelected($event)">
+        </div>
+        <dismissable-alert *ngIf="submitError" (click)="submitError = ''" [text]="submitError"></dismissable-alert>
+        <div class="col-auto">
+            <submit-button class="me-2" [disabled]="isSubmissionDisabled()"
+                [text]="(isUpdate ? 'Update' : 'Submit')" [submitting]="submitting"
+                (onSubmit)="onSubmitClick()"></submit-button>
+            <button class="btn btn-danger" (click)="onCancelClick()">Cancel</button>
+        </div>
+    </form>
+</div>

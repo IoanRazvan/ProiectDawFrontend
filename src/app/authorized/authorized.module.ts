@@ -6,12 +6,14 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { TokenInterceptorService } from "../core/services/token-interceptor.service";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SharedModule } from "../shared/shared.module";
+import { UploadsModule } from "../uploads/uploads.module";
 
 @NgModule({
     imports: [
         AuthorizedRoutingModule,
         FontAwesomeModule,
         SharedModule,
+        UploadsModule
     ],
     declarations: [
         AuthorizedComponent,
