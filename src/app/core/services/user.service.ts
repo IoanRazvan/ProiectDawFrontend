@@ -13,11 +13,11 @@ export class UserService {
     constructor(private http: HttpClient, private sessionService: SessionService) { }
 
     signIn(userObject: DirectSignInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.authenticate(`http://localhost:48463/api/User`, userObject, onSuccess, onError);
+        this.authenticate(`${environment.apiUrl}/User`, userObject, onSuccess, onError);
     }
 
     logIn(userObject: DirectLogInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.authenticate(`http://localhost:48463/api/User/authenticate`, userObject, onSuccess, onError);
+        this.authenticate(`${environment.apiUrl}/User/authenticate`, userObject, onSuccess, onError);
     }
 
     private authenticate(url: string, userObject: DirectSignInUser | DirectLogInUser, onSuccess: () => void, onError?: (err: any) => void) {
