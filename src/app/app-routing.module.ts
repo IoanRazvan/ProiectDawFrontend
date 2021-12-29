@@ -5,12 +5,13 @@ import { AuthorizedComponent } from './authorized/authorized.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { RouteGuard } from './core/services/route-guard.service';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'login', component: LogInComponent},
-  {path: 'app', children: authorizedRoutes, component: AuthorizedComponent}
+  {path: '', component: LandingComponent, canActivate: [RouteGuard]},
+  {path: 'signup', component: SignUpComponent, canActivate: [RouteGuard]},
+  {path: 'login', component: LogInComponent, canActivate: [RouteGuard]},
+  {path: 'app', children: authorizedRoutes, component: AuthorizedComponent, canActivate: [RouteGuard]}
 ];
 
 @NgModule({

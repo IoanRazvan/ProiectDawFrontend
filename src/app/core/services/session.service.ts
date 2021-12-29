@@ -8,12 +8,20 @@ import { AuthenticationResponse } from "../../api/response.models";
 export class SessionService {
     constructor(private router: Router) {}
 
+    private tokenExpired(token: string) : boolean {
+        const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+        return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+    }
+
     saveUser(user : AuthenticationResponse) {
         localStorage.setItem('user', user.token)
     }
 
     getUser() : string | null {
-        return localStorage.getItem('user');
+        const token = localStorage.getItem('user');
+        if (token && this.tokenExpired(token))
+            localStorage.removeItem('user');
+        return token;
     }
 
     isLoggedIn() : boolean {
