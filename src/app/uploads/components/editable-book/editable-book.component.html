@@ -1,0 +1,9 @@
+<div *ngIf="editFormOpen then thenClause else elseClause"></div>
+<ng-template #thenClause>
+    <div class="container-md mb-3 col-md-8">
+        <book-form [bookData]="book" (onSubmitSuccessful)="onUpdateSuccessful()" (onCancel)="onBookFormCancelClick()"></book-form>
+    </div>
+</ng-template>
+<ng-template #elseClause>
+    <uploaded-book [book]="book" (onDelete)="onDeleteClick($event)" (onEdit)="onEditClick()"></uploaded-book>
+</ng-template>

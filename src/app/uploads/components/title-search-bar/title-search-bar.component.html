@@ -1,0 +1,8 @@
+<div class="input-group">
+    <input type="text" class="form-control" placeholder="Search by Title" #title [value]="queryString">
+    <div class="input-group-append">
+        <button (click)="onSearchButtonClick(title.value)" class="btn btn-primary">
+            <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+    </div>
+</div>

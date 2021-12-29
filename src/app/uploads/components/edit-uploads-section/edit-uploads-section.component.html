@@ -1,0 +1,23 @@
+<div class="container col-md-9 mb-3">
+    <title-search-bar></title-search-bar>
+</div>
+
+<loading-success-error [loading]="pageLoading" [error]="!!errorMessage">
+    <div success>
+        <div *ngIf="books.length else emptyList">
+            <div class="container col-md-9">
+                <editable-book *ngFor="let book of books" [book]="book"></editable-book>
+                <editable-book-list-pager [pageInfo]="pageInfo"></editable-book-list-pager>
+            </div>
+        </div>
+        <ng-template #emptyList>
+            <div class="container mb-3">
+                <centered-message [text]="'No books were found'"></centered-message>
+            </div>
+        </ng-template>
+    </div>
+
+    <div error class="text-danger">
+        <centered-message [text]="errorMessage"></centered-message>
+    </div>
+</loading-success-error>

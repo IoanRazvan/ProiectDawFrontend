@@ -1,0 +1,17 @@
+<ul class="pagination">
+    <div *ngIf="!isFirstPage">
+        <li class="page-item">
+          <a class="page-link" aria-label="Previous" (click)="changePage(pageInfo.currentPageNumber - 1)">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+    </div>
+    <li class="page-item"><a class="page-link">{{ pageInfo.currentPageNumber + 1}}</a></li>
+    <div *ngIf="!isLastPage">
+        <li class="page-item">
+          <a class="page-link" aria-label="Next" (click)="changePage(pageInfo.currentPageNumber + 1)">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+    </div>
+</ul>

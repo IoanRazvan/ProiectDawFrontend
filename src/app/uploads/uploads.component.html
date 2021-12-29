@@ -2,3 +2,5 @@
 <div class="container mb-3 col-md-6">
     <book-form [bookData]="formData" [contetIsRequired]="true" (onCancel)="clearNewBookFormFields()" (onSubmitSuccessful)="clearNewBookFormFields()"></book-form>
 </div>
+<app-header [title]="'Edit Previous Uploads'"></app-header>
+<edit-uploads-section></edit-uploads-section>

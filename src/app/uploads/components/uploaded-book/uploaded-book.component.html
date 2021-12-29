@@ -1,0 +1,19 @@
+<div class="card card-body mb-3">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <img [src]="book.coverUrl" style="object-fit: contain;" width="55" alt="cover">
+        </div>
+        <div class="col-6 me-auto">
+            <h6>{{book.title}}</h6>
+            <h6 class="text-muted">{{book.authorName}}</h6>
+        </div>
+        <div class="col-auto">
+            <a class="text-danger me-2" (click)="onDeleteClick()" style="font-size: 1.3em;">
+                <fa-icon [icon]="faTrash"></fa-icon>
+            </a>
+            <a class="text-success" (click)="onEditClick()" style="font-size: 1.3em;">
+                <fa-icon [icon]="faEdit"></fa-icon>
+            </a>
+        </div>
+    </div>
+</div>
