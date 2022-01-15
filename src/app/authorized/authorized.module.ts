@@ -7,13 +7,15 @@ import { TokenInterceptorService } from "../core/services/token-interceptor.serv
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SharedModule } from "../shared/shared.module";
 import { UploadsModule } from "../uploads/uploads.module";
+import { SearchModule } from "../search/search.module";
 
 @NgModule({
     imports: [
         AuthorizedRoutingModule,
         FontAwesomeModule,
         SharedModule,
-        UploadsModule
+        UploadsModule,
+        SearchModule
     ],
     declarations: [
         AuthorizedComponent,

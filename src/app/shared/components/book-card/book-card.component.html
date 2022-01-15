@@ -1,0 +1,10 @@
+<div class="card rounded-0">
+    <img src="{{bookData.coverUrl}}" alt="card cover" height="150" style="object-fit: contain;" class='card-img-top'>
+    <div class="card-body">
+        <h5 class="card-title">{{bookData.title}}</h5>
+        <div class="card-text">
+            <p class="text-muted">{{bookData.authorName}}</p>
+            <p><span class="badge rounded-pill bg-secondary me-2" *ngFor="let genre of bookData.genres">{{genre.title}}</span></p>
+        </div>
+    </div>
+</div>

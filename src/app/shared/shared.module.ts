@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppHeaderComponent } from './components/header/header.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CenteredMessageComponent } from './components/centered-message/centered-message.component';
+import { BookCardComponent } from './components/book-card/book-card.component';
 
 
 
@@ -22,6 +23,7 @@ import { CenteredMessageComponent } from './components/centered-message/centered
     AppHeaderComponent,
     SpinnerComponent,
     CenteredMessageComponent,
+    BookCardComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
   ],
@@ -37,6 +39,7 @@ import { CenteredMessageComponent } from './components/centered-message/centered
     AppHeaderComponent,
     SpinnerComponent,
     CenteredMessageComponent,
+    BookCardComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
     CommonModule,
