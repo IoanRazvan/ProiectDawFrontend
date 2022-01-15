@@ -1,7 +1,7 @@
 <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search by Title" #title [value]="queryString">
+    <input type="text" (keydown.enter)="onSearchButtonClick(title.value)" class="form-control rounded-0" placeholder="Search by Title" #title [value]="queryString">
     <div class="input-group-append">
-        <button (click)="onSearchButtonClick(title.value)" class="btn btn-primary">
+        <button (click)="onSearchButtonClick(title.value)" class="btn btn-primary rounded-0">
             <fa-icon [icon]="faSearch"></fa-icon>
         </button>
     </div>
