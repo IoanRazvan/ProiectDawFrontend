@@ -12,6 +12,7 @@ import { AppHeaderComponent } from './components/header/header.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CenteredMessageComponent } from './components/centered-message/centered-message.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
+import { PagerComponent } from './components/pager/pager.component';
 
 
 
@@ -24,6 +25,7 @@ import { BookCardComponent } from './components/book-card/book-card.component';
     SpinnerComponent,
     CenteredMessageComponent,
     BookCardComponent,
+    PagerComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
   ],
@@ -40,6 +42,7 @@ import { BookCardComponent } from './components/book-card/book-card.component';
     SpinnerComponent,
     CenteredMessageComponent,
     BookCardComponent,
+    PagerComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
     CommonModule,

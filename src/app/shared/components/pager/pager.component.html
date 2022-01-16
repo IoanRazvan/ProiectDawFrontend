@@ -6,7 +6,7 @@
           </a>
         </li>
     </div>
-    <li class="page-item"><a class="page-link">{{ pageInfo.currentPageNumber + 1}}</a></li>
+    <li class="page-item"><a class="page-link">{{ pageInfo.currentPageNumber }}</a></li>
     <div *ngIf="!isLastPage">
         <li class="page-item">
           <a class="page-link" aria-label="Next" (click)="changePage(pageInfo.currentPageNumber + 1)">

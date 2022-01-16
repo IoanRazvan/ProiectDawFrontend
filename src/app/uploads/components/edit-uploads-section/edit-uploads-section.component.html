@@ -7,7 +7,7 @@
         <div *ngIf="books.length else emptyList">
             <div class="container col-md-9">
                 <editable-book *ngFor="let book of books" [book]="book"></editable-book>
-                <editable-book-list-pager [pageInfo]="pageInfo"></editable-book-list-pager>
+                <pager [pageInfo]="pageInfo" (onPageChange)="onPageChange($event)"></pager>
             </div>
         </div>
         <ng-template #emptyList>

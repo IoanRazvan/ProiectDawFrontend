@@ -3,7 +3,6 @@ import { SharedModule } from '../shared/shared.module';
 import { UploadsComponent } from './uploads.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { EditableBookComponent } from './components/editable-book/editable-book.component';
-import { EditableBookListPagerComponent } from './components/editable-book-list-pager/editable-book-list-pager.component';
 import { UploadsService } from './services/uploads.service';
 import { RouterModule } from '@angular/router';
 import { UploadedBookComponent } from './components/uploaded-book/uploaded-book.component';
@@ -18,7 +17,6 @@ import { LoadingSuccessErrorComponent } from './components/loading-success-error
     UploadsComponent,
     BookFormComponent,
     EditableBookComponent,
-    EditableBookListPagerComponent,
     UploadedBookComponent,
     BookFormSelectComponent,
     TitleSearchBarComponent,

@@ -24,12 +24,16 @@ export class EditUploadsSectionComponent implements OnInit {
     this.service.clientPage.subscribe({
       next: (page) => {
         this.books = page.result;
-        this.pageInfo = { currentPageNumber: page.currentPageNumber, lastPageNumber: page.lastPageNumber };
+        this.pageInfo = { currentPageNumber: page.currentPageNumber + 1, lastPageNumber: page.lastPageNumber + 1 };
       },
       error: () => {
         this.errorMessage = 'Unable to fetch uploads';
         console.log(this.errorMessage);
       }
     });
+  }
+
+  onPageChange(pageNumber: number) {
+    this.service.changePage(pageNumber - 1);
   }
 }
