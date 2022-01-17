@@ -1,16 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, combineLatest, filter, map, merge, mergeAll, Observable, of, ReplaySubject, share, startWith, Subject, timestamp } from "rxjs";
+import { BehaviorSubject, combineLatest, filter, map, mergeAll, Observable, of, ReplaySubject, share, startWith, Subject, tap, timestamp } from "rxjs";
 import { BookService } from "src/app/core/services/book.service";
 import { GenreService } from "src/app/core/services/genre.service";
 import { Book } from "src/app/models/book.model";
 import { Genre } from "src/app/models/genre.model";
-import { Page } from "src/app/models/page.model";
+import { Page, PageParams, toClientPage, toServerPageNumber } from "src/app/models/page.model";
 import { environment } from "src/environments/environment";
 
-export interface SearchParams {
-    query: string;
-    pageNumber: number;
+export interface UploadsParams extends PageParams {
     forceRequest: boolean;
 }
 
@@ -20,30 +18,28 @@ interface IPageOperation extends Function {
 
 @Injectable()
 export class UploadsService {
-    public readonly searchParams: Subject<SearchParams> = new ReplaySubject<SearchParams>(1);
+    public readonly searchParams: Subject<UploadsParams> = new ReplaySubject<UploadsParams>(1);
 
     private pageOperation: Subject<IPageOperation> = new Subject<IPageOperation>();
 
-    public readonly requestingBooks: Observable<boolean>;
-
     public loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-    private cachedServerPage!: Page<Book>;
+    private cachedServerPage !: Page<Book>;
 
-    private currentSearchParams !: SearchParams;
+    private cachedSearchParams !: UploadsParams;
 
     private serverPage: Observable<Page<Book>>;
 
     public readonly clientPage: Observable<Page<Book>>;
 
     constructor(private bookService: BookService, private genreService: GenreService, private router: Router) {
-        this.searchParams.subscribe((params) => {
-            this.currentSearchParams = params;
-            this.loading.next(true);
+        this.searchParams.pipe(
+            tap(() => this.loading.next(true))
+        ).subscribe((params) => {
+            this.cachedSearchParams = params;
         });
 
-        this.serverPage = combineLatest([this.searchParams.pipe(timestamp()), this.pageOperation.pipe(startWith(page => page), timestamp())])
-            .pipe(
+        this.serverPage = combineLatest([this.searchParams.pipe(timestamp()), this.pageOperation.pipe(startWith(page => page), timestamp())]).pipe(
                 filter(([params, operation]) => {
                     if (this.queryIsNotCached(params.value) || operation.timestamp > params.timestamp || params.value.forceRequest)
                         return true;
@@ -51,71 +47,33 @@ export class UploadsService {
                 }),
                 map(([params, operation]) => {
                     if (params.timestamp >= operation.timestamp) {
-                        const requestedPage = this.toServerPageNumber(params.value.pageNumber);
+                        const requestedPage = toServerPageNumber(params.value.pageNumber);
                         return this.bookService.getUploadedBooksByTitle(params.value.query, requestedPage, environment.serverPageSize);
                     }
                     else {
                         return of(operation.value(this.cachedServerPage));
                     }
-                }), mergeAll(), share({ connector: () => new ReplaySubject(2) })
+                }),
+                mergeAll(),
+                share({ connector: () => new ReplaySubject(1) })
             );
 
         this.serverPage.subscribe((page) => this.cachedServerPage = page);
 
-        this.clientPage = combineLatest([this.searchParams, this.serverPage])
-            .pipe(
-                filter(([params]) => {
-                    if (!this.cachedServerPage || !this.queryIsNotCached(params))
-                        return true;
-                    return false;
-                }),
-                map(([params, page]) => {
-                    this.loading.next(false);
-                    return this.toClientPage(params, page);
-                }),
-                share({ connector: () => new ReplaySubject(2) })
+        this.clientPage = combineLatest([this.searchParams, this.serverPage]).pipe(
+                filter(([params]) => !this.cachedServerPage || !this.queryIsNotCached(params)),
+                map(([params, page]) => toClientPage(params, page)),
+                tap(() => this.loading.next(false)),
+                share({ connector: () => new ReplaySubject(1) })
             );
                 
         this.clientPage.subscribe({
             error: () => this.loading.next(false)
         })
-
-        this.requestingBooks = merge(this.searchParams, this.clientPage).pipe(map(spOrCP => {
-            if ('result' in spOrCP)
-                return false;
-            return true;
-        }));
     }
 
-    private toServerPageNumber(pageNumber: number): number {
-        return Math.floor(((pageNumber + 1) * environment.clientPageSize - 1) / environment.serverPageSize);
-    }
-
-    private queryIsNotCached(params: SearchParams): boolean {
-        return this.cachedServerPage?.query !== params.query || this.cachedServerPage?.currentPageNumber !== this.toServerPageNumber(params.pageNumber);
-    }
-
-    private toClientPage(params: SearchParams, page: Page<Book>) {
-        const lastPageNumber = this.computeClientLastPageNumber(page);
-        const absoluteRecordIndex = params.pageNumber * environment.clientPageSize;
-        const offset = page.currentPageNumber * environment.serverPageSize;
-        const relativeRecordIndex = absoluteRecordIndex - offset;
-        return {
-            currentPageNumber: params.pageNumber,
-            query: params.query,
-            result: page.result.slice(relativeRecordIndex, relativeRecordIndex + environment.clientPageSize),
-            lastPageNumber,
-            pageSize: environment.clientPageSize
-        };
-    }
-
-    private computeClientLastPageNumber(page: Page<Book>) {
-        let lastPageNumber;
-        if (page.currentPageNumber === page.lastPageNumber)
-            lastPageNumber = Math.ceil((page.currentPageNumber * environment.serverPageSize + page.result.length) / environment.clientPageSize) - 1;
-        else
-            lastPageNumber = (page.lastPageNumber + 1) * environment.serverPageSize / environment.clientPageSize - 1;
-        return lastPageNumber;
+    private queryIsNotCached(params: UploadsParams): boolean {
+        return this.cachedServerPage?.query !== params.query || this.cachedServerPage?.currentPageNumber !== toServerPageNumber(params.pageNumber);
     }
 
     getGenres(): Observable<Genre[]> {
@@ -169,10 +127,10 @@ export class UploadsService {
             if (this.cachedServerPage.lastPageNumber !== this.cachedServerPage.currentPageNumber)
                 this.remakeLastRequest();
             else {
-                const currentClientPage = this.toClientPage(this.currentSearchParams, this.cachedServerPage);
+                const currentClientPage = toClientPage(this.cachedSearchParams, this.cachedServerPage);
                 this.pageOperation.next(this.createDeleteBookOpeartion(bookId));
                 if (currentClientPage.currentPageNumber === currentClientPage.lastPageNumber) {
-                    if (currentClientPage.result.length - 1 === 0 && this.currentSearchParams.pageNumber !== 0) {
+                    if (currentClientPage.result.length - 1 === 0 && this.cachedSearchParams.pageNumber !== 0) {
                         this.changePage(currentClientPage.currentPageNumber - 1);
                     }
                 }
@@ -189,7 +147,7 @@ export class UploadsService {
     }
 
     private remakeLastRequest() {
-        this.setPageAndQuery(this.currentSearchParams.pageNumber, this.currentSearchParams.query, true);
+        this.setPageAndQuery(this.cachedSearchParams.pageNumber, this.cachedSearchParams.query, true);
     }
 
     setPageAndQuery(pageNumber: number, query: string, forceRequest: boolean = false) {
@@ -197,7 +155,7 @@ export class UploadsService {
     }
 
     changePage(pageNumber: number) {
-        this.setPageAndQuery(pageNumber, this.currentSearchParams?.query || '');
+        this.setPageAndQuery(pageNumber, this.cachedSearchParams?.query || '');
     }
 
     setQuery(query: string) {
