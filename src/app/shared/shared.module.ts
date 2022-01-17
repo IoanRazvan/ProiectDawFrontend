@@ -13,6 +13,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CenteredMessageComponent } from './components/centered-message/centered-message.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { PagerComponent } from './components/pager/pager.component';
+import { LoadingSuccessErrorComponent } from './components/loading-success-error/loading-success-error.component';
 
 
 
@@ -28,6 +29,7 @@ import { PagerComponent } from './components/pager/pager.component';
     PagerComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
+    LoadingSuccessErrorComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,7 @@ import { PagerComponent } from './components/pager/pager.component';
     CenteredMessageComponent,
     BookCardComponent,
     PagerComponent,
+    LoadingSuccessErrorComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
     CommonModule,

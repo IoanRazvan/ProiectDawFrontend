@@ -9,7 +9,6 @@ import { UploadedBookComponent } from './components/uploaded-book/uploaded-book.
 import { BookFormSelectComponent } from './components/book-form-select/book-form-select.component';
 import { TitleSearchBarComponent } from './components/title-search-bar/title-search-bar.component';
 import { EditUploadsSectionComponent } from './components/edit-uploads-section/edit-uploads-section.component';
-import { LoadingSuccessErrorComponent } from './components/loading-success-error/loading-success-error.component';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { LoadingSuccessErrorComponent } from './components/loading-success-error
     BookFormSelectComponent,
     TitleSearchBarComponent,
     EditUploadsSectionComponent,
-    LoadingSuccessErrorComponent
   ],
   imports: [
     SharedModule,
