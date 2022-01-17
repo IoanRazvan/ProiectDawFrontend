@@ -1,26 +1,11 @@
 <app-header [title]="'Search Books'"></app-header>
 <div class="container-md col-md-9">
-    <div class="row gx-0">
-        <input type="text" class="form-control rounded-0 col" placeholder="Search" id="searchBar">
-        <div class="col-auto">
-            <select class="form-select rounded-0">
-                <option selected value="1">by title</option>
-                <option value="2">by author</option>
-            </select>
+    <search-bar></search-bar>
+    <ordering-section></ordering-section>
+    <loading-success-error [loading]="loading" [error]="!!errorMessage">
+        <result-section success></result-section>
+        <div error class="text-danger">
+            <centered-message [text]="errorMessage"></centered-message>
         </div>
-    </div>
-    <div class="row gx-0 my-3 border-bottom border-1">
-        <strong class="col-auto align-self-center pb-3 me-2">Sort By: </strong>
-        <div class="col-auto pb-3">
-            <select class="form-select rounded-0">
-                <option value="1">Date Descending</option>
-                <option value="2">Date Ascending</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs col-sm-6 col-md-5 col-lg-4">
-            <book-card [bookData]="bookData"></book-card>
-        </div>
-    </div>
+    </loading-success-error>
 </div>

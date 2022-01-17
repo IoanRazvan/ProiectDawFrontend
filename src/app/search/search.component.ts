@@ -1,43 +1,45 @@
-import { Component, ElementRef  } from "@angular/core";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { debounceTime, filter, fromEvent } from "rxjs";
-import { Book } from "../models/book.model";
+import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { distinct, distinctUntilChanged, of, subscribeOn } from "rxjs";
+import { BookOrder } from "../constants/ordering.constants";
+import { SearchParams, SearchService } from "./services/search.service";
 
 @Component({
     selector: 'search',
     templateUrl: './search.component.html'
 })
 export class SearchComponent {
-    faSearch = faSearch
-    bookData: Book = {
-        coverUrl: 'https://images-na.ssl-images-amazon.com/images/I/91fJxgs69QL.jpg',
-        title: 'Norwegian Wood',
-        authorName: 'Haruki Murakami',
-        genres: [
-        {
-            id: '1',
-            title: 'Romance'
-        },
-        {
-            id: '2',
-            title: 'Drama'
-        },
-        {
-            id: '3',
-            title: 'Fiction'
-        }
-        ]
+    loading!: boolean;
+    errorMessage!: string;
+
+    constructor(private service: SearchService, private route: ActivatedRoute, private router: Router) {
     }
 
-    constructor(private el: ElementRef) {
-    }
-    
     ngOnInit(): void {
-        const searchBar = this.el.nativeElement.getElementsByTagName("input")[0]
-        fromEvent(searchBar, "keyup")
-            .pipe(
-                filter(() => searchBar.value.length > 2),
-                debounceTime(200)
-            ).subscribe((r) => console.log(r))
+        let subscription = this.route.queryParams.subscribe(({ order, field, q, page }) => {
+            field = field || "title";
+            q = q || "";
+            order = order || BookOrder.UPLOAD_TIME_DESCENDING;
+            page = page || "1";
+            this.service.setSearchParams(new SearchParams({ queriedField: field, order: Number(order), queryString: q, pageNumber: Number(page) - 1 }))
+        });
+        subscription.unsubscribe();
+
+        this.service.searchParams.subscribe((params) => {
+            this.router.navigate(["/app/search"], {
+                queryParams: {
+                    order: params.order,
+                    field: params.queriedField,
+                    page: params.pageNumber + 1,
+                    q: params.queryString
+                }
+            })
+        });
+
+        this.service.loading.subscribe((loading) => this.loading = loading);
+
+        this.service.clientPage.subscribe({
+            error: () => this.errorMessage = "Unable to search for books"
+        });
     }
 }

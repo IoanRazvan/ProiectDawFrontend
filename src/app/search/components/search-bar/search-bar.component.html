@@ -1,0 +1,9 @@
+<div class="row gx-0">
+    <input value="{{query}}" type="text" class="form-control rounded-0 col" placeholder="Search">
+    <div class="col-auto">
+        <select value="{{field}}" class="form-select rounded-0" (change)="onQueriedFieldChange($event)">
+            <option value="title">by title</option>
+            <option value="author">by author</option>
+        </select>
+    </div>
+</div>

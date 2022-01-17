@@ -1,0 +1,9 @@
+<div class="row gx-0 my-3 border-bottom border-1">
+    <strong class="col-auto align-self-center pb-3 me-2">Sort By: </strong>
+    <div class="col-auto pb-3" (change)="onOrderChange($event)">
+        <select class="form-select rounded-0">
+            <option [selected]="order == BookOrder.UPLOAD_TIME_DESCENDING" value="{{BookOrder.UPLOAD_TIME_DESCENDING}}">Date Descending</option>
+            <option [selected]="order == BookOrder.UPLOAD_TIME_ASCENDING" value="{{BookOrder.UPLOAD_TIME_ASCENDING}}">Date Ascending</option>
+        </select>
+    </div>
+</div>
