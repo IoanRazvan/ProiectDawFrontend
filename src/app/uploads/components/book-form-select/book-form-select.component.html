@@ -1,8 +1,12 @@
 <label class="form-label">Genres</label>
 <loading-success-error [loading]="loading" [error]="!!errorMessage">
-    <select success [multiple]="true" class="form-select" size="3" [compareWith]="compareFunction"
-        [formControl]="$any(inputModel)">
-        <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.title}}</option>
-    </select>
-    <div error class="text-danger">{{errorMessage}}</div>
+    <ng-template [lseContent]="'success'">
+        <select [multiple]="true" class="form-select" size="3" [compareWith]="compareFunction"
+            [formControl]="$any(inputModel)">
+            <option *ngFor="let genre of genres" [ngValue]="genre">{{genre.title}}</option>
+        </select>
+    </ng-template>
+    <ng-template [lseContent]="'error'">
+        <div error class="text-danger">{{errorMessage}}</div>
+    </ng-template>
 </loading-success-error>

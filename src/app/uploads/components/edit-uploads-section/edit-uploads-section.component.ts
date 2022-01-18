@@ -8,7 +8,7 @@ import { UploadsService } from '../../services/uploads.service';
   templateUrl: './edit-uploads-section.component.html'
 })
 export class EditUploadsSectionComponent implements OnInit {
-  books: Book[] = [];
+  books!: Book[];
   pageInfo!: PageInfo;
   pageLoading: boolean = true;
   errorMessage = '';

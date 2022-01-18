@@ -3,7 +3,7 @@
 </div>
 
 <loading-success-error [loading]="pageLoading" [error]="!!errorMessage">
-    <div success>
+    <ng-template [lseContent]="'success'">
         <div *ngIf="books.length else emptyList">
             <div class="container col-md-9">
                 <editable-book *ngFor="let book of books" [book]="book"></editable-book>
@@ -15,9 +15,11 @@
                 <centered-message [text]="'No books were found'"></centered-message>
             </div>
         </ng-template>
-    </div>
+    </ng-template>
 
-    <div error class="text-danger">
-        <centered-message [text]="errorMessage"></centered-message>
-    </div>
+    <ng-template [lseContent]="'error'">
+        <div class="text-danger">
+            <centered-message [text]="errorMessage"></centered-message>
+        </div>
+    </ng-template>
 </loading-success-error>

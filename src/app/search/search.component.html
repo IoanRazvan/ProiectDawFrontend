@@ -3,9 +3,13 @@
     <search-bar></search-bar>
     <ordering-section></ordering-section>
     <loading-success-error [loading]="loading" [error]="!!errorMessage">
-        <result-section success></result-section>
-        <div error class="text-danger">
-            <centered-message [text]="errorMessage"></centered-message>
-        </div>
+        <ng-template [lseContent]="'success'">
+            <result-section></result-section>
+        </ng-template>
+        <ng-template [lseContent]="'error'">
+            <div class="text-danger">
+                <centered-message [text]="errorMessage"></centered-message>
+            </div>
+        </ng-template>
     </loading-success-error>
 </div>

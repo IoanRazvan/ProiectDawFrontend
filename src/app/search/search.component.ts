@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { distinct, distinctUntilChanged, of, subscribeOn } from "rxjs";
 import { BookOrder } from "../constants/ordering.constants";
 import { SearchParams, SearchService } from "./services/search.service";
 

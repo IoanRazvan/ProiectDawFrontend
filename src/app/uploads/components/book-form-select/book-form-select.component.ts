@@ -10,7 +10,7 @@ import { UploadsService } from '../../services/uploads.service';
 export class BookFormSelectComponent implements OnInit {
   @Input() inputModel!: AbstractControl;
   loading: boolean = true;
-  genres: Genre[] = [];
+  genres!: Genre[];
   errorMessage: string = '';
 
   constructor(private uploadsService: UploadsService) { }

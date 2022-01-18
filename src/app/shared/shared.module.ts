@@ -13,6 +13,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CenteredMessageComponent } from './components/centered-message/centered-message.component';
 import { BookCardComponent } from './components/book-card/book-card.component';
 import { PagerComponent } from './components/pager/pager.component';
+import { LoadingSuccessErrorContentDirective } from './directives/loading-success-error-content/loading-success-error-content.directive';
 import { LoadingSuccessErrorComponent } from './components/loading-success-error/loading-success-error.component';
 
 
@@ -29,7 +30,8 @@ import { LoadingSuccessErrorComponent } from './components/loading-success-error
     PagerComponent,
     DeCamelCasePipe,
     FormatValidationMessagePipe,
-    LoadingSuccessErrorComponent
+    LoadingSuccessErrorComponent,
+    LoadingSuccessErrorContentDirective
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { LoadingSuccessErrorComponent } from './components/loading-success-error
     CommonModule,
     BrowserModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LoadingSuccessErrorContentDirective
   ]
 })
 export class SharedModule { }
