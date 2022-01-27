@@ -9,12 +9,18 @@ import { FormsModule } from '@angular/forms';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LibraryAssignmentComponent } from './components/library-assignment/library-assignment.component';
+import { QuickInfoSectionComponent } from './components/quick-info-section/quick-info-section.component';
+import { CommentsSectionComponent } from './components/comments-section/comments-section.component';
+import { BookInfoComponent } from './components/book-info/book-info.component';
 
 @NgModule({
   declarations: [
     BookDetailsComponent,
     CommaSeparatedPipe,
-    LibraryAssignmentComponent
+    LibraryAssignmentComponent,
+    QuickInfoSectionComponent,
+    CommentsSectionComponent,
+    BookInfoComponent
   ],
   imports: [
     CommonModule,

@@ -1,42 +1,6 @@
 <loading-success-error [loading]="loading" [error]="!!error">
     <ng-template [lseContent]="'success'">
-        <div class="container">
-            <h2 class="mt-3">{{bookData.title}}</h2>
-            <p class="text-muted">{{bookData.authorName}}</p>
-            <div class="row mb-4">
-                <div class="col-auto">
-                    <img class="border border-1" src="{{bookData.coverUrl}}" alt="book cover" height="400"
-                        style="object-fit: contain;">
-                </div>
-                <div class="col-md-6">
-                    <div class="row gx-0">
-                        <p-rating class="col-auto me-2" [cancel]="false" [readonly]="true"
-                            [ngModel]="bookData.meanRating">
-                        </p-rating>
-                        <div class="col-auto">
-                            ({{bookData.ratingCount}})
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-6 col-md-12 align-self-start">
-                            <h6>Uploaded By:</h6>
-                            <p>{{bookData.uploadedBy}}</p>
-                        </div>
-                        <div class="col-6 col-md-12">
-                            <h6>Genres: </h6>
-                            <p>{{bookData.genres | commaSeparated}}</p>
-                        </div>
-                    </div>
-                    <library-assignment [label]="'Add To Library:'"></library-assignment>
-                    <button [routerLink]="['/app/book-content/', bookData.id]" class="btn btn-success mt-3">Start Reding</button>
-                </div>
-            </div>
-            <div *ngIf="bookData.description" class="mb-4">
-                <h4>Description</h4>
-                <p class="mb-3">{{bookData.description}}</p>
-            </div>
-            <h4>Comments</h4>
-        </div>
+        <book-info [bookData]="bookData"></book-info>
     </ng-template>
     <ng-template [lseContent]="'error'">
         <div class="text-danger">

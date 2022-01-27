@@ -1,0 +1,19 @@
+<div class="row gx-1 mb-2">
+    <p-rating class="col-auto me-2" [cancel]="false" [readonly]="true" [ngModel]="bookData.meanRating">
+    </p-rating>
+    <div class="col-auto">
+        ({{bookData.ratingCount}})
+    </div>
+</div>
+<div class="row gx-0 gy-2">
+    <div class="col-6 col-md-12 align-self-start">
+        <h6 class="mb-1">Uploaded By:</h6>
+        <span>{{bookData.uploadedBy}}</span>
+    </div>
+    <div class="col-6 col-md-12">
+        <h6 class="mb-1">Genres: </h6>
+        <span>{{bookData.genres | commaSeparated}}</span>
+    </div>
+    <library-assignment [label]="'Add To Library:'"></library-assignment>
+</div>
+<button [routerLink]="['/app/book-content/', bookData.id]" class="btn btn-success mt-3">Start Reding</button>
