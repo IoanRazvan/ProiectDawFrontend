@@ -1,0 +1,45 @@
+<app-header [title]="'Edit Profile Information'"></app-header>
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">First Name</div>
+        <div class="col-md-5 col-sm-8 col-10">
+            <input type="text" class="form-control rounded-pill" value="Ioan">
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">Last Name</div>
+        <div class="col-md-5 col-sm-8 col-10">
+            <input type="text" class="form-control rounded-pill" value="Rusu">
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">Email</div>
+        <div class="col-md-5 col-sm-8 col-10">
+            <input type="text" class="form-control rounded-pill" value="ioanrazvanrusu@gmail.com">
+        </div>
+    </div>
+    <button class="btn btn-primary mb-4 rounded-pill">Update</button>
+
+</div>
+<app-header [title]="'Edit User Settings'"></app-header>
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-md-3 col-sm-8 col-10 align-self-center" style="font-weight: 500;">Remember Page Number</div>
+        <div class="col-md-6 col-sm-8 col-10">
+            <input type="checkbox" class="form-check-input">
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 col-sm-10 col-10 align-self-center" style="font-weight: 500;">Number of Recent Books</div>
+        <div class="col-auto">
+            <input type="number" class="form-control" min="5" max="10">
+        </div>
+    </div>
+    <button class="btn btn-primary rounded-pill">Update</button>
+</div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <button class="btn btn-danger mt-4 mb-2 rounded-pill">Log Out</button>
+    </div>
+</div>

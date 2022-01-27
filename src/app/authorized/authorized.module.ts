@@ -10,6 +10,7 @@ import { UploadsModule } from "../uploads/uploads.module";
 import { SearchModule } from "../search/search.module";
 import { BookReadingModule } from "../book-reading/book-reading.module";
 import { BookDetailsModule } from "../book-details/book-details.module";
+import { SettingsModule } from "../settings/settings.module";
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { BookDetailsModule } from "../book-details/book-details.module";
         UploadsModule,
         SearchModule,
         BookDetailsModule,
-        BookReadingModule
+        BookReadingModule,
+        SettingsModule
     ],
     declarations: [
         AuthorizedComponent,

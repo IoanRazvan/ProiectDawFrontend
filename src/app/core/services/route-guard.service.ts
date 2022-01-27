@@ -10,7 +10,6 @@ export class RouteGuard implements CanActivate {
     constructor(private sessionService: SessionService, private router : Router) {}
 
     canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        console.log(route.url);
         const routeRequiresUnauthenticatedAccess = route.url.findIndex(segment => ['login', 'signup'].includes(segment.path)) !== -1 || route.url.length === 0;
         if (routeRequiresUnauthenticatedAccess && this.sessionService.isLoggedIn())
             return this.router.parseUrl("/app");

@@ -28,7 +28,6 @@ export class EditUploadsSectionComponent implements OnInit {
       },
       error: () => {
         this.errorMessage = 'Unable to fetch uploads';
-        console.log(this.errorMessage);
       }
     });
   }

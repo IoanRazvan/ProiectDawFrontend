@@ -4,6 +4,7 @@ import { BookReadingComponent } from './book-reading.component';
 import { RouterModule } from '@angular/router';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserModule } from '@angular/platform-browser';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -15,7 +16,8 @@ import { BrowserModule } from '@angular/platform-browser';
     CommonModule,
     RouterModule,
     BrowserModule,
-    PdfViewerModule
+    PdfViewerModule,
+    SharedModule
   ],
   exports: [
     BookReadingComponent
