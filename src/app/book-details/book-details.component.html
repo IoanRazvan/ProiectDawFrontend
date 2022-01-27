@@ -8,7 +8,7 @@
                     <img class="border border-1" src="{{bookData.coverUrl}}" alt="book cover" height="400"
                         style="object-fit: contain;">
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <div class="row gx-0">
                         <p-rating class="col-auto me-2" [cancel]="false" [readonly]="true"
                             [ngModel]="bookData.meanRating">
@@ -17,10 +17,18 @@
                             ({{bookData.ratingCount}})
                         </div>
                     </div>
-                    <h6>Genres: </h6>
-                    <p>{{bookData.genres | commaSeparated}}</p>
+                    <div class="row mt-2">
+                        <div class="col-6 col-md-12 align-self-start">
+                            <h6>Uploaded By:</h6>
+                            <p>{{bookData.uploadedBy}}</p>
+                        </div>
+                        <div class="col-6 col-md-12">
+                            <h6>Genres: </h6>
+                            <p>{{bookData.genres | commaSeparated}}</p>
+                        </div>
+                    </div>
                     <library-assignment [label]="'Add To Library:'"></library-assignment>
-                    <button [routerLink]="['/app/book-content/', bookData.id]" class="btn btn-primary mt-2">Start Reding</button>
+                    <button [routerLink]="['/app/book-content/', bookData.id]" class="btn btn-success mt-3">Start Reding</button>
                 </div>
             </div>
             <div *ngIf="bookData.description" class="mb-4">

@@ -2,13 +2,14 @@
 <loading-success-error [loading]="loading" [error]="!!error">
     <ng-template [lseContent]="'success'">
         <div class="row gx-0 mb-0">
-            <div class="col-auto">
-                <p-multiSelect class="col me-2" [options]="libraries" [(ngModel)]="currentLibraries" optionLabel="name"
-                    display="chip" defaultLabel="Select Libraries" selectedItemsLabel="{0} items selected" [maxSelectedLabels]="1"></p-multiSelect>
+            <div class="col-auto me-2">
+                <p-multiSelect [options]="libraries" [(ngModel)]="currentLibraries" optionLabel="name"
+                    defaultLabel="Select Libraries" selectedItemsLabel="{0} items selected" [maxSelectedLabels]="2">
+                </p-multiSelect>
             </div>
             <div class="col-auto align-self-center">
-                <submit-button classs="col align-self-center" [text]="'Update Libraries'" (onSubmit)="onUpdateLibraries()"
-                    [submitting]="updating"></submit-button>
+                <submit-button classs="col align-self-center" [text]="'Update Libraries'"
+                    (onSubmit)="onUpdateLibraries()" [submitting]="updating"></submit-button>
             </div>
         </div>
     </ng-template>

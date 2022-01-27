@@ -12,6 +12,7 @@ export interface Book {
 export interface BookDetails extends Book {
     meanRating: number;
     ratingCount: number;
+    uploadedBy: string;
 }
 
 export const DEFAULT_BOOK_DATA : Book = {
