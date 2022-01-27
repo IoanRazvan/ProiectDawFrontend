@@ -39,10 +39,11 @@ export class BookFormComponent implements OnChanges, OnInit {
 
   private populateForm(bookData: Book) {
     const initialValues = this.prepareInitialValues(bookData);
+    console.log(initialValues);
 
     this.form = this.fb.group({
       'title': [initialValues.title, Validators.required],
-      'description': [initialValues.description],
+      'description': [initialValues.description || ''],
       'coverUrl': [initialValues.coverUrl, Validators.required],
       'authorName': [initialValues.authorName, Validators.required],
       'genres': [initialValues.genres,]
@@ -70,6 +71,7 @@ export class BookFormComponent implements OnChanges, OnInit {
     this.submitting = true;
     let submissionStream: Observable<Book>;
     const data = this.buildFormData();
+    console.log(this.form);
     if (this.isUpdate)
       submissionStream = this.service.updateBook(data, <string>this.bookData.id)
     else
@@ -90,6 +92,7 @@ export class BookFormComponent implements OnChanges, OnInit {
       }
     }
     formData.append('content', this.uploadedFile);
+    console.log(formData);
     return formData;
   }
 

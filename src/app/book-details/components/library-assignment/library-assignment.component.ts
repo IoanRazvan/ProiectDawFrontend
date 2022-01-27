@@ -46,7 +46,7 @@ export class LibraryAssignmentComponent implements OnInit {
     let toRemove = this.initialLibraries.filter(initialLib => !this.currentLibraries.some(currentLib => currentLib.id === initialLib.id)).map((lib : any) => lib.id);
     let toAdd = this.currentLibraries.filter(currentLib => !this.initialLibraries.some(initialLib => initialLib.id === currentLib.id)).map((lib : any) => lib.id);
     this.service.updateLibraryAssignment({
-      bookId: this.bookId,
+      entityId: this.bookId,
       added: toAdd,
       removed: toRemove
     }).subscribe({
