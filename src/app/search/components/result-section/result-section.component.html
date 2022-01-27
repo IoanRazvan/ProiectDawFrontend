@@ -1,7 +1,7 @@
 <div *ngIf="books.length then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
     <div class="row gy-0">
-        <div *ngFor="let book of books" class="col-xs col-sm-6 col-lg-4 mb-3">
+        <div [routerLink]="['/app/book/', book.id]" *ngFor="let book of books" class="col-xs col-sm-6 col-lg-4 mb-3">
             <book-card [bookData]="book"></book-card>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BookOrder } from "src/app/constants/ordering.constants";
-import { Book } from "src/app/models/book.model";
+import { Book, BookDetails } from "src/app/models/book.model";
 import { Page } from "src/app/models/page.model";
 import { environment } from "src/environments/environment";
 
@@ -38,5 +38,9 @@ export class BookService {
             q = `&field=${field}&q=${query}`
         
         return <any>this.http.get(`${environment.apiUrl}/Book?page=${pageNumber}&pageSize=${pageSize}&order=${order}${q}`);
+    }
+
+    getBook(id: string) : Observable<BookDetails> {
+        return <any>this.http.get(`${environment.apiUrl}/Book/${id}`);
     }
 }

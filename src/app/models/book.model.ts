@@ -9,6 +9,11 @@ export interface Book {
     genres: Genre[];
 }
 
+export interface BookDetails extends Book {
+    meanRating: number;
+    ratingCount: number;
+}
+
 export const DEFAULT_BOOK_DATA : Book = {
     title: '',
     description: '',
