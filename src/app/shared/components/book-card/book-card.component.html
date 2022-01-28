@@ -1,10 +1,11 @@
 <div class="card rounded-0">
     <img src="{{bookData.coverUrl}}" alt="card cover" height="150" style="object-fit: contain;" class='card-img-top'>
     <div class="card-body">
-        <h5 class="card-title">{{bookData.title}}</h5>
+        <h5 class="card-title text-truncate">{{bookData.title}}</h5>
         <div class="card-text">
             <p class="text-muted">{{bookData.authorName}}</p>
-            <p><span class="badge rounded-pill bg-secondary me-2" *ngFor="let genre of bookData.genres">{{genre.title}}</span></p>
+            <span class="badge rounded-pill bg-secondary me-2" *ngFor="let genre of bookData.genres.slice(0,2)">{{genre.title}}</span>
+            <span *ngIf="bookData.genres.slice(2).length" class="badge rounded-pill bg-secondary me-2">+{{bookData.genres.slice(2).length}}</span>
         </div>
     </div>
 </div>
