@@ -8,9 +8,11 @@ import { environment } from "src/environments/environment";
     providedIn: 'root'
 })
 export class GenreService {
+    private serviceEndpoint = `${environment.apiUrl}/Genre`;
+    
     constructor(private http: HttpClient) {}
 
     getAll() : Observable<Genre[]> {
-        return <any> this.http.get(`${environment.apiUrl}/Genre`);
+        return <any> this.http.get(this.serviceEndpoint);
     }
 }

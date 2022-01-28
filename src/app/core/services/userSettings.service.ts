@@ -8,10 +8,12 @@ import { environment } from "src/environments/environment";
     providedIn: 'root'
 })
 export class UserSettingsService {
+    private serviceEndpoint = `${environment.apiUrl}/UserSettings`;
+
     constructor(private http: HttpClient) {
     }
 
     updateUserSettings(userSettings: UserSettings) : Observable<any> {
-        return this.http.put(`${environment.apiUrl}/UserSettings`, userSettings);
+        return this.http.put(this.serviceEndpoint, userSettings);
     }
 }

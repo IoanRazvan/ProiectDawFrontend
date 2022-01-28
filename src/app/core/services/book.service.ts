@@ -10,25 +10,27 @@ import { environment } from "src/environments/environment";
     providedIn: 'root'
 })
 export class BookService {
+    private serviceEndpoint = `${environment.apiUrl}/Book`;
+
     constructor(private http: HttpClient) {
     }
 
     saveBook(book: FormData): Observable<Book> {
-        return <any>this.http.post(`${environment.apiUrl}/Book`, book);
+        return <any>this.http.post(this.serviceEndpoint, book);
     }
 
     getUploadedBooksByTitle(query: string, pageNumber: number, pageSize: number): Observable<Page<Book>> {
         console.log('getPage');
-        return <any>this.http.get(`${environment.apiUrl}/Book/Uploads?q=${query}&page=${pageNumber}&pageSize=${pageSize}`);
+        return <any>this.http.get(`${this.serviceEndpoint}/Uploads?q=${query}&page=${pageNumber}&pageSize=${pageSize}`);
 
     }
 
     updateBook(book: FormData, id: string) : Observable<Book> {
-        return <any>this.http.put(`${environment.apiUrl}/Book/${id}`, book);
+        return <any>this.http.put(`${this.serviceEndpoint}/${id}`, book);
     }
 
     deleteBook(id: string) : Observable<any> {
-        return this.http.delete(`${environment.apiUrl}/Book/${id}`);
+        return this.http.delete(`${this.serviceEndpoint}/${id}`);
     }
 
     getBooks(pageNumber: number, pageSize: number, order?: BookOrder, field?: "author" | "title", query?: string): Observable<Page<Book>> {
@@ -37,10 +39,10 @@ export class BookService {
         if (field)
             q = `&field=${field}&q=${query}`
         
-        return <any>this.http.get(`${environment.apiUrl}/Book?page=${pageNumber}&pageSize=${pageSize}&order=${order}${q}`);
+        return <any>this.http.get(`${this.serviceEndpoint}?page=${pageNumber}&pageSize=${pageSize}&order=${order}${q}`);
     }
 
     getBook(id: string) : Observable<BookDetails> {
-        return <any>this.http.get(`${environment.apiUrl}/Book/${id}`);
+        return <any>this.http.get(`${this.serviceEndpoint}/${id}`);
     }
 }

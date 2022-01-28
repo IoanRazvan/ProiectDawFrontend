@@ -9,14 +9,15 @@ import { environment } from "src/environments/environment";
     providedIn: 'root'
 })
 export class LibraryService {
+    private serviceEndpoint = `${environment.apiUrl}/Library`
     constructor(private http: HttpClient) {
     }
 
     getLibraries(bookId: string) : Observable<Library[]> {
-        return <any>this.http.get(`${environment.apiUrl}/Library?bookId=${bookId}`);
+        return <any>this.http.get(`${this.serviceEndpoint}?bookId=${bookId}`);
     }
 
     updateLibraryAssignment(update : ManyToManyUpdate) : Observable<Library[]> {
-        return <any>this.http.post(`${environment.apiUrl}/Library`, update);
+        return <any>this.http.post(this.serviceEndpoint, update);
     }
 }

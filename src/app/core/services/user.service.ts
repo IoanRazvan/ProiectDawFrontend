@@ -10,14 +10,16 @@ import { SessionService } from "./session.service";
     providedIn: 'root'
 })
 export class UserService {
+    private serviceEndpoint = `${environment.apiUrl}/User`;
+
     constructor(private http: HttpClient, private sessionService: SessionService) { }
 
     signIn(userObject: DirectSignInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.authenticate(`${environment.apiUrl}/User`, userObject, onSuccess, onError);
+        this.authenticate(this.serviceEndpoint, userObject, onSuccess, onError);
     }
 
     logIn(userObject: DirectLogInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.authenticate(`${environment.apiUrl}/User/authenticate`, userObject, onSuccess, onError);
+        this.authenticate(`${this.serviceEndpoint}/authenticate`, userObject, onSuccess, onError);
     }
 
     private authenticate(url: string, userObject: DirectSignInUser | DirectLogInUser, onSuccess: () => void, onError?: (err: any) => void) {
@@ -31,10 +33,10 @@ export class UserService {
     }
 
     getProfileInformation() : Observable<User> {
-        return <any>this.http.get(`${environment.apiUrl}/User`);
+        return <any>this.http.get(this.serviceEndpoint);
     }
 
     updateProfileInformation(userInfo: User) : Observable<any> {
-        return <any>this.http.put(`${environment.apiUrl}/User`, userInfo);
+        return <any>this.http.put(this.serviceEndpoint, userInfo);
     }
 }
