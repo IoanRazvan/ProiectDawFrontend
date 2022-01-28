@@ -1,0 +1,13 @@
+<div *ngFor="let item of (formControls | keyvalue)" class="row mb-2">
+    <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">
+        {{$any(item.key) | deCamelCase}}
+    </div>
+    <div class="col-md-5 col-sm-8 col-10">
+        <form-input [showLabel]="false" [classes]="['form-control', 'rounded-pill']"
+            [inputModel]="form.controls[$any(item.key)]" [errorMessage]="$any(item.value)"></form-input>
+    </div>
+</div>
+<div *ngIf="error" class="text-danger">
+    {{error}}
+</div>
+<submit-button [text]="'Update'" (onSubmit)="onSubmit()" [submitting]="submitting" [disabled]="form.invalid"></submit-button>

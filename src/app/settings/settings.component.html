@@ -1,45 +1,33 @@
 <app-header [title]="'Edit Profile Information'"></app-header>
 <div class="container">
-    <div class="row mb-2">
-        <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">First Name</div>
-        <div class="col-md-5 col-sm-8 col-10">
-            <input type="text" class="form-control rounded-pill" value="Ioan">
-        </div>
-    </div>
-
-    <div class="row mb-2">
-        <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">Last Name</div>
-        <div class="col-md-5 col-sm-8 col-10">
-            <input type="text" class="form-control rounded-pill" value="Rusu">
-        </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-md-2 col-sm-8 col-10 align-self-center" style="font-weight: 500;">Email</div>
-        <div class="col-md-5 col-sm-8 col-10">
-            <input type="text" class="form-control rounded-pill" value="ioanrazvanrusu@gmail.com">
-        </div>
-    </div>
-    <button class="btn btn-primary mb-4 rounded-pill">Update</button>
-
+    <loading-success-error [loading]="loading" [error]="error">
+        <ng-template [lseContent]="'success'">
+            <edit-profile-info [user]="user"></edit-profile-info>
+        </ng-template>
+        <ng-template [lseContent]="'error'">
+            <div class="text-danger">
+                <centered-message [text]="'Unable to fetch profile information'"></centered-message>
+            </div>
+        </ng-template>
+    </loading-success-error>
 </div>
-<app-header [title]="'Edit User Settings'"></app-header>
+<div class="mt-5">
+    <app-header [title]="'Edit User Settings'"></app-header>
+</div>
 <div class="container">
-    <div class="row mb-2">
-        <div class="col-md-3 col-sm-8 col-10 align-self-center" style="font-weight: 500;">Remember Page Number</div>
-        <div class="col-md-6 col-sm-8 col-10">
-            <input type="checkbox" class="form-check-input">
-        </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-md-3 col-sm-10 col-10 align-self-center" style="font-weight: 500;">Number of Recent Books</div>
+    <loading-success-error [loading]="loading" [error]="error">
+        <ng-template [lseContent]="'success'">
+            <edit-user-settings [userSettings]="user.userSettings"></edit-user-settings>
+        </ng-template>
+        <ng-template [lseContent]="'error'">
+            <div class="text-danger">
+                <centered-message [text]="'Unable to fetch user settings'"></centered-message>
+            </div>
+        </ng-template>
+    </loading-success-error>
+    <div class="row justify-content-center">
         <div class="col-auto">
-            <input type="number" class="form-control" min="5" max="10">
+            <button class="btn btn-danger mt-4 mb-2" (click)="onLogOut()">Log Out</button>
         </div>
-    </div>
-    <button class="btn btn-primary rounded-pill">Update</button>
-</div>
-<div class="row justify-content-center">
-    <div class="col-auto">
-        <button class="btn btn-danger mt-4 mb-2 rounded-pill">Log Out</button>
     </div>
 </div>

@@ -1,0 +1,20 @@
+<div class="row mb-2">
+    <div class="col-md-3 col-sm-8 col-10 align-self-center" style="font-weight: 500;">
+        Remember Page Number
+    </div>
+    <div class="col-md-6 col-sm-8 col-10">
+        <input type="checkbox" class="form-check-input" [formControl]="$any(form.controls['rememberPageNumber'])">
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-3 col-sm-10 col-10 align-self-center" style="font-weight: 500;">
+        Number of Recent Books
+    </div>
+    <div class="col-auto">
+        <form-input [type]="'number'" [inputModel]="form.controls['numberOfRecentBooks']" [showLabel]="false" [errorMessage]="ValidationConstants.RANGE | formatValidationMessage:'5':'10'"></form-input>
+    </div>
+</div>
+<div *ngIf="error" class="text-danger">
+    {{error}}
+</div>
+<submit-button [text]="'Update'" (onSubmit)="onSubmit()" [submitting]="submitting"  [disabled]="form.invalid"></submit-button>
