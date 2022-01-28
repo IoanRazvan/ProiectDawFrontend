@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { DirectLogInUser, DirectSignInUser, User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
 import { AuthenticationResponse } from "../../api/response.models";
-import { DirectLogInUser } from '../../models/direct-log-in-user.model'
-import { DirectSignInUser } from "../../models/direct-sign-in-user.model";
 import { SessionService } from "./session.service";
 
 @Injectable({
