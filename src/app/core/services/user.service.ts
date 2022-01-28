@@ -29,4 +29,12 @@ export class UserService {
             error: err => onError?.(err)
         });
     }
+
+    getProfileInformation() : Observable<User> {
+        return <any>this.http.get(`${environment.apiUrl}/User`);
+    }
+
+    updateProfileInformation(userInfo: User) : Observable<any> {
+        return <any>this.http.put(`${environment.apiUrl}/User`, userInfo);
+    }
 }
