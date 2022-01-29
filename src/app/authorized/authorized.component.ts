@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { faCog, faHome, faSearch, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faHome, faSearch, faUpload, faUsersCog } from "@fortawesome/free-solid-svg-icons";
+import { SessionService } from "../core/services/session.service";
 import { NavItem } from "./components/navbar/navbar.component";
 
 @Component({
@@ -7,10 +8,20 @@ import { NavItem } from "./components/navbar/navbar.component";
     templateUrl: './authorized.component.html'
 })
 export class AuthorizedComponent {
-    navItems: NavItem[] = [
-        {icon: faHome, link: '/app'},
-        {icon: faSearch, link: 'search'},
-        {icon: faUpload, link: 'uploads'},
-        {icon: faCog, link: 'settings'}
-    ];
+    navItems: NavItem[];
+
+    constructor(service: SessionService) {
+        this.navItems = [
+            {icon: faHome, link: '/app'},
+            {icon: faSearch, link: 'search'},
+            {icon: faUpload, link: 'uploads'},
+            {icon: faCog, link: 'settings'}
+        ];
+        if (service.getRole() === "Admin")
+            this.addAdminRoute();
+    }
+
+    addAdminRoute() {
+        this.navItems = this.navItems.slice(0, 3).concat([{icon: faUsersCog, link: 'admin'}]).concat(this.navItems.slice(3));   
+    }
 }
