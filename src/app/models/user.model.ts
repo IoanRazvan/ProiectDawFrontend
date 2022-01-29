@@ -21,3 +21,5 @@ export interface User {
     email: string;
     userSettings: UserSettings;
 }
+
+export type Role = "Admin" | "User";
