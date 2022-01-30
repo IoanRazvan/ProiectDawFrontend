@@ -10,6 +10,7 @@ import { UploadsService } from '../../services/uploads.service';
 export class EditUploadsSectionComponent implements OnInit {
   books!: Book[];
   pageInfo!: PageInfo;
+  queryString!: string;
   pageLoading: boolean = true;
   errorMessage = '';
 
@@ -20,6 +21,8 @@ export class EditUploadsSectionComponent implements OnInit {
     this.service.loading.subscribe((isLoading) => {
       this.pageLoading = isLoading;
     });
+
+    this.service.searchParams.subscribe(({query}) => this.queryString = query);
 
     this.service.clientPage.subscribe({
       next: (page) => {
@@ -34,5 +37,9 @@ export class EditUploadsSectionComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.service.changePage(pageNumber - 1);
+  }
+
+  onSearch(query: string) {
+    this.service.setQuery(query);
   }
 }

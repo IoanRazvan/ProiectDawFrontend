@@ -3,10 +3,10 @@ import { debounceTime, fromEvent } from 'rxjs';
 import { SearchService } from '../../services/search.service';
 
 @Component({
-  selector: 'search-bar',
-  templateUrl: './search-bar.component.html',
+  selector: 'books-search-bar',
+  templateUrl: './books-search-bar.component.html',
 })
-export class SearchBarComponent implements OnInit {
+export class BooksSearchBarComponent implements OnInit {
   query!: string;
   field!: string;
 

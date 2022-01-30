@@ -1,0 +1,8 @@
+<div class="input-group">
+    <input type="text" (keydown.enter)="onSearchIssued(title.value)" class="form-control rounded-0" placeholder="{{placeholder}}" #title [value]="queryString">
+    <div class="input-group-append">
+        <button (click)="onSearchIssued(title.value)" class="btn btn-primary rounded-0">
+            <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+    </div>
+</div>

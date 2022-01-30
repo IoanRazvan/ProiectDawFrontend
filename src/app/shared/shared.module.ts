@@ -15,6 +15,7 @@ import { BookCardComponent } from './components/book-card/book-card.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { LoadingSuccessErrorContentDirective } from './directives/loading-success-error-content/loading-success-error-content.directive';
 import { LoadingSuccessErrorComponent } from './components/loading-success-error/loading-success-error.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 
@@ -31,12 +32,14 @@ import { LoadingSuccessErrorComponent } from './components/loading-success-error
     DeCamelCasePipe,
     FormatValidationMessagePipe,
     LoadingSuccessErrorComponent,
-    LoadingSuccessErrorContentDirective
+    LoadingSuccessErrorContentDirective,
+    SearchBarComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   exports: [
     DismissableAlertComponent,
@@ -54,7 +57,8 @@ import { LoadingSuccessErrorComponent } from './components/loading-success-error
     BrowserModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    LoadingSuccessErrorContentDirective
+    LoadingSuccessErrorContentDirective,
+    SearchBarComponent
   ]
 })
 export class SharedModule { }

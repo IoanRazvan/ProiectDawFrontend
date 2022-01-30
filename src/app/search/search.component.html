@@ -1,6 +1,6 @@
 <app-header [title]="'Search Books'"></app-header>
 <div class="container-md col-md-9">
-    <search-bar></search-bar>
+    <books-search-bar></books-search-bar>
     <ordering-section></ordering-section>
     <loading-success-error [loading]="loading" [error]="!!errorMessage">
         <ng-template [lseContent]="'success'">

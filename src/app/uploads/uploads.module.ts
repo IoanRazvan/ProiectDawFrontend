@@ -7,7 +7,6 @@ import { UploadsService } from './services/uploads.service';
 import { RouterModule } from '@angular/router';
 import { UploadedBookComponent } from './components/uploaded-book/uploaded-book.component';
 import { BookFormSelectComponent } from './components/book-form-select/book-form-select.component';
-import { TitleSearchBarComponent } from './components/title-search-bar/title-search-bar.component';
 import { EditUploadsSectionComponent } from './components/edit-uploads-section/edit-uploads-section.component';
 
 
@@ -18,7 +17,6 @@ import { EditUploadsSectionComponent } from './components/edit-uploads-section/e
     EditableBookComponent,
     UploadedBookComponent,
     BookFormSelectComponent,
-    TitleSearchBarComponent,
     EditUploadsSectionComponent,
   ],
   imports: [

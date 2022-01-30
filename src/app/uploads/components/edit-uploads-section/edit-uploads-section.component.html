@@ -1,5 +1,5 @@
 <div class="container col-md-9 mb-3">
-    <title-search-bar></title-search-bar>
+    <search-bar [queryString]="queryString" [placeholder]="'Search by Title'" (onSearch)="onSearch($event)"></search-bar>
 </div>
 
 <loading-success-error [loading]="pageLoading" [error]="!!errorMessage">

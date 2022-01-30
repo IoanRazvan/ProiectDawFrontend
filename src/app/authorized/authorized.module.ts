@@ -11,6 +11,7 @@ import { SearchModule } from "../search/search.module";
 import { BookReadingModule } from "../book-reading/book-reading.module";
 import { BookDetailsModule } from "../book-details/book-details.module";
 import { SettingsModule } from "../settings/settings.module";
+import { AdminModule } from "../admin/admin.module";
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { SettingsModule } from "../settings/settings.module";
         SearchModule,
         BookDetailsModule,
         BookReadingModule,
-        SettingsModule
+        SettingsModule,
+        AdminModule
     ],
     declarations: [
         AuthorizedComponent,
