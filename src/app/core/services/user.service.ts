@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, ReplaySubject, share } from "rxjs";
 import { DirectLogInUser, DirectSignInUser, User } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
 import { AuthenticationResponse } from "../../api/response.models";
@@ -14,22 +14,20 @@ export class UserService {
 
     constructor(private http: HttpClient, private sessionService: SessionService) { }
 
-    signIn(userObject: DirectSignInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.authenticate(this.serviceEndpoint, userObject, onSuccess, onError);
+    signIn(userObject: DirectSignInUser) : Observable<any> {
+        return this.beginUserTracking(this.http.post(this.serviceEndpoint, userObject));
     }
 
-    logIn(userObject: DirectLogInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.authenticate(`${this.serviceEndpoint}/authenticate`, userObject, onSuccess, onError);
+    logIn(userObject: DirectLogInUser) {
+        return this.beginUserTracking(this.http.post(`${this.serviceEndpoint}/authenticate`, userObject));
     }
 
-    private authenticate(url: string, userObject: DirectSignInUser | DirectLogInUser, onSuccess: () => void, onError?: (err: any) => void) {
-        this.http.post(url, userObject).subscribe({
-            next: resp => {
-                this.sessionService.saveUser(<AuthenticationResponse>resp);
-                onSuccess();
-            },
-            error: err => onError?.(err)
-        });
+    private beginUserTracking(req : Observable<any>) : Observable<any> {
+        req = req.pipe(
+            share({connector: () => new ReplaySubject(1)})
+        );
+        req.subscribe((token: AuthenticationResponse) => this.sessionService.saveUser(token));
+        return req;
     }
 
     getProfileInformation() : Observable<User> {

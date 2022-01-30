@@ -22,7 +22,10 @@ export class LogInComponent extends AuthetnticationBase {
     override onSubmit() : boolean {
         super.onSubmit();
         const userCredentials: DirectLogInUser = this.form.value;
-        this.userService.logIn(userCredentials, this.onSubmitSuccess.bind(this), this.onSubmitError.bind(this));
+        this.userService.logIn(userCredentials).subscribe({
+            next: this.onSubmitSuccess.bind(this),
+            error: this.onSubmitError.bind(this)
+        });
         return false;
     }
 }

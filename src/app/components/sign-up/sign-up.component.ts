@@ -31,7 +31,10 @@ export class SignUpComponent extends AuthetnticationBase implements OnInit {
     override onSubmit() : boolean {
         super.onSubmit();
         const userObject : DirectSignInUser = Object.assign({}, this.form.value);
-        this.userService.signIn(userObject, this.onSubmitSuccess.bind(this), this.onSubmitError.bind(this));
+        this.userService.signIn(userObject).subscribe({
+            next: this.onSubmitSuccess.bind(this),
+            error: this.onSubmitError.bind(this)
+        });
         return false;
     }
 
