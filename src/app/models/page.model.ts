@@ -1,5 +1,4 @@
 import { environment } from "src/environments/environment";
-import { Book } from "./book.model";
 
 export interface Page<T> {
     currentPageNumber: number;
@@ -24,7 +23,7 @@ export function toServerPageNumber(pageNumber: number, clientPageSize = environm
     return Math.floor(((pageNumber + 1) * clientPageSize - 1) / serverPageSize);
 }
 
-export function toClientPage(params: PageParams, serverPage: Page<Book>, clientPageSize = environment.clientPageSize) {
+export function toClientPage<T>(params: PageParams, serverPage: Page<T>, clientPageSize = environment.clientPageSize) {
     const lastPageNumber = computeClientLastPageNumber(serverPage, clientPageSize);
     const absoluteRecordIndex = params.pageNumber * clientPageSize;
     const offset = serverPage.currentPageNumber * serverPage.pageSize;
@@ -39,7 +38,7 @@ export function toClientPage(params: PageParams, serverPage: Page<Book>, clientP
     };
 }
 
-function computeClientLastPageNumber(serverPage: Page<Book>, clientPageSize = environment.clientPageSize) {
+function computeClientLastPageNumber<T>(serverPage: Page<T>, clientPageSize = environment.clientPageSize) {
     let lastPageNumber;
     if (serverPage.currentPageNumber === serverPage.lastPageNumber)
         lastPageNumber = Math.ceil((serverPage.currentPageNumber * serverPage.pageSize + serverPage.result.length) / clientPageSize) - 1;
