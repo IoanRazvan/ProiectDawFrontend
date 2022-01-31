@@ -1,14 +1,14 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { SessionService } from "src/app/core/services/session.service";
 import { environment } from "src/environments/environment";
-import { SessionService } from "../core/services/session.service";
 
 @Component({
     selector: "book-reading",
-    templateUrl: "./book-reading.component.html"
+    templateUrl: "./book-content.component.html"
 })
-export class BookReadingComponent implements OnInit {
+export class BookContentComponent implements OnInit {
     pdfSrc !: Object;
     pageModel = 7;
 

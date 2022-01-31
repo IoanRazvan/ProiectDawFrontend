@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SharedModule } from "../shared/shared.module";
 import { UploadsModule } from "../uploads/uploads.module";
 import { SearchModule } from "../search/search.module";
-import { BookReadingModule } from "../book-reading/book-reading.module";
 import { BookDetailsModule } from "../book-details/book-details.module";
 import { SettingsModule } from "../settings/settings.module";
 import { AdminModule } from "../admin/admin.module";
@@ -21,7 +20,6 @@ import { AdminModule } from "../admin/admin.module";
         UploadsModule,
         SearchModule,
         BookDetailsModule,
-        BookReadingModule,
         SettingsModule,
         AdminModule
     ],
