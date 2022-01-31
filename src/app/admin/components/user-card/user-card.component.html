@@ -1,0 +1,24 @@
+<div class="card mb-2 rounded-0">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-auto me-auto">
+                <div class="row gx-2">
+                    <div *ngIf="user.userRole === 'Admin'" class="col-auto">
+                        <fa-icon [icon]="faUserShield"></fa-icon>
+                    </div>
+                    <div class="col-auto">
+                        <h5>{{user.firstName}} {{user.lastName}}</h5>
+                    </div>
+                </div>
+                <p>{{user.email}}</p>
+            </div>
+            <div *ngIf="user.userRole === 'User'" class="col-auto align-self-center">
+                <button *ngIf="user.isDisabled else notDisabled" class="btn btn-success me-2 rounded-0" (click)="emitEvent('enable')">Enable</button>
+                <ng-template #notDisabled>
+                    <button class="btn btn-danger me-2 rounded-0" (click)="emitEvent('disable')">Disable</button>
+                </ng-template>
+                <button class="btn btn-primary rounded-0" (click)="emitEvent('promote')">Promote</button>
+            </div>
+        </div>
+    </div>
+</div>
