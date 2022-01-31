@@ -22,4 +22,20 @@ export interface User {
     userSettings: UserSettings;
 }
 
+export interface AdminEditableUser {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    userRole: Role;
+    isDisabled: boolean;
+}
+
 export type Role = "Admin" | "User";
+
+export type UserEventType = "enable" | "disable" | "promote";
+
+export interface UserEvent {
+    operation: UserEventType;
+    id: string;
+}

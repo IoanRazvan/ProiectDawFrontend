@@ -1,10 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, ReplaySubject, share } from "rxjs";
-import { DirectLogInUser, DirectSignInUser, User } from "src/app/models/user.model";
+import { Page } from "src/app/models/page.model";
+import { AdminEditableUser, DirectLogInUser, DirectSignInUser, User, UserEvent } from "src/app/models/user.model";
 import { environment } from "src/environments/environment";
 import { AuthenticationResponse } from "../../api/response.models";
 import { SessionService } from "./session.service";
+
+export type UserEventType = "promote" | "disable" | "enable";
 
 @Injectable({
     providedIn: 'root'
@@ -36,5 +39,14 @@ export class UserService {
 
     updateProfileInformation(userInfo: User) : Observable<any> {
         return <any>this.http.put(this.serviceEndpoint, userInfo);
+    }
+
+    getUsers(pageNumber : number, pageSize: number, query : string) : Observable<Page<AdminEditableUser>> {
+        console.log('getUsers');
+        return <any>this.http.get(`${this.serviceEndpoint}/admin?page=${pageNumber}&pageSize=${pageSize}&q=${query}`);
+    }
+
+    editUser(event: UserEvent) : Observable<AdminEditableUser> {
+        return <any>this.http.put(`${this.serviceEndpoint}/admin`, event);
     }
 }
