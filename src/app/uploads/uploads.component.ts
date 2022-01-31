@@ -24,14 +24,11 @@ export class UploadsComponent implements OnInit {
         subscription.unsubscribe();
 
         this.service.searchParams.subscribe(({ query, pageNumber }) => {
-            if (query && pageNumber)
-                this.router.navigate(['/app/uploads'], { queryParams: { q: query, page: pageNumber + 1 } });
-            else if (pageNumber)
-                this.router.navigate(['/app/uploads'], { queryParams: { page: pageNumber + 1 } });
-            else if (query)
-                this.router.navigate(['/app/uploads'], {queryParams: { q: query }});
-            else
-                this.router.navigate(['/app/uploads']);
+            let queryParams : any = {};
+            if (query)
+                queryParams.q = query;
+            queryParams.page = pageNumber + 1;
+            this.router.navigate(['/app/uploads'], { queryParams });     
         });
     }
 
