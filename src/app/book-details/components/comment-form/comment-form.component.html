@@ -1,0 +1,9 @@
+<div class="mb-2">
+    <p-rating [formControl]="$any(form.controls['score'])" [class.is-invalid]="form.controls['score'].invalid && form.controls['score'].touched"></p-rating>
+    <span class="invalid-feedback">
+        rating is required
+    </span>
+</div>
+<textarea rows="{{noRows}}" [formControl]="$any(form.controls['comment'])" class="form-control mb-2"></textarea>
+<button class="btn btn-danger me-2">Cancel</button>
+<submit-button [text]="'Post'" (onSubmit)="onPostClick()" [submitting]="submitting" [disabled]="form.invalid"></submit-button>
