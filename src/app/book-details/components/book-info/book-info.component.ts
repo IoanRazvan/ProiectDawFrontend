@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookDetails } from 'src/app/models/book.model';
+import { ReviewData } from 'src/app/models/review.model';
 
 @Component({
   selector: 'book-info',
@@ -8,4 +9,5 @@ import { BookDetails } from 'src/app/models/book.model';
 })
 export class BookInfoComponent {
   @Input() bookData !: BookDetails;
+  @Output() onNewReview: EventEmitter<ReviewData> = new EventEmitter();
 }

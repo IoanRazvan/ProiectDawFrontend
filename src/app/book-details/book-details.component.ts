@@ -4,6 +4,7 @@ import { map, switchAll } from "rxjs";
 import { BookService } from "../core/services/book.service";
 import { LibraryService } from "../core/services/library.service";
 import { BookDetails } from "../models/book.model";
+import { ReviewData } from "../models/review.model";
 
 @Component({
     selector: 'book-details',
@@ -19,19 +20,24 @@ export class BookDetailsComponent implements OnInit {
     constructor(private route: ActivatedRoute, private bookService: BookService, private libraryService: LibraryService) {
     }
 
-    ngOnInit() : void {
+    ngOnInit(): void {
         this.route.params.pipe(
-            map(({id}) => this.bookService.getBook(id)),
+            map(({ id }) => this.bookService.getBook(id)),
             switchAll()
         ).subscribe({
-            next: (book : any) => {
+            next: (book: any) => {
                 this.loading = false;
                 this.bookData = book;
             },
-            error: ({error}) => {
-                this.error = error.status;
+            error: ({ error }) => {
+                this.error = error.status || true;
                 this.loading = false;
             }
         });
+    }
+
+    onNewReview(review: ReviewData) {
+        this.bookData.meanRating = (this.bookData.meanRating * this.bookData.ratingCount + review.score) / (this.bookData.ratingCount + 1);
+        this.bookData.ratingCount += 1;
     }
 }

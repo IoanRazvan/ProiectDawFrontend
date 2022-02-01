@@ -1,6 +1,6 @@
 <loading-success-error [loading]="loading" [error]="!!error">
     <ng-template [lseContent]="'success'">
-        <book-info [bookData]="bookData"></book-info>
+        <book-info [bookData]="bookData" (onNewReview)="onNewReview($event)"></book-info>
     </ng-template>
     <ng-template [lseContent]="'error'">
         <div class="text-danger">

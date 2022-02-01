@@ -15,6 +15,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BookDetailsRoutingModule } from './book-details-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BookContentComponent } from './components/book-content/book-content.component';
+import { CommentFormComponent } from './components/comment-form/comment-form.component';
+import { CommentCardComponent } from './components/comment-card/comment-card.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { BookContentComponent } from './components/book-content/book-content.com
     QuickInfoSectionComponent,
     CommentsSectionComponent,
     BookInfoComponent,
-    BookContentComponent
+    BookContentComponent,
+    CommentFormComponent,
+    CommentCardComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +43,6 @@ import { BookContentComponent } from './components/book-content/book-content.com
   ],
   exports: [
     BookDetailsComponent
-  ]
+  ],
 })
 export class BookDetailsModule { }

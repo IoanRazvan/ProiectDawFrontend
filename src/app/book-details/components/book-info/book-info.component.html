@@ -13,5 +13,5 @@
         <h4>Description</h4>
         <p class="mb-3">{{bookData.description}}</p>
     </div>
-    <comments-section></comments-section>
+    <comments-section (onPost)="onNewReview.emit($event)"></comments-section>
 </div>
