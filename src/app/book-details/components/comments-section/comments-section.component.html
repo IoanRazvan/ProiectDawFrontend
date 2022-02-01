@@ -1,1 +1,14 @@
 <h4>Comments</h4>
+<loading-success-error [loading]="loadingReviews || loadingForm" [error]="false">
+    <ng-template [lseContent]="'success'">
+        <div class="col-md-8 mb-2">
+            <comment-form *ngIf="showForm" (onPost)="onReviewPost($event)"></comment-form>
+        </div>
+        <div class="border-bottom border-1 mb-2"></div>
+        <div *ngFor="let review of page.result" class="col-md-8 mb-2">
+            <comment-card [review]="review"></comment-card>
+        </div>
+        <pager [pageInfo]="{currentPageNumber: page.currentPageNumber + 1, lastPageNumber: page.lastPageNumber + 1}" (onPageChange)="onPageChange($event)">
+        </pager>
+    </ng-template>
+</loading-success-error>
