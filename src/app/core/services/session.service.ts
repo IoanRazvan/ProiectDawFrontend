@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { Role } from "src/app/models/user.model";
 import { AuthenticationResponse } from "../../api/response.models";
 
@@ -7,14 +6,13 @@ import { AuthenticationResponse } from "../../api/response.models";
     providedIn: 'root'
 })
 export class SessionService {
-    constructor(private router: Router) {}
 
     private tokenExpired(token: string) : boolean {
         const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
         return (Math.floor((new Date).getTime() / 1000)) >= expiry;
     }
 
-    getRole() : Role {
+    getUserRole() : Role {
         const jwtPayload = this.parseJwt();
         return jwtPayload.role;
     }
@@ -47,8 +45,7 @@ export class SessionService {
         return this.getUser() !== null
     }
 
-    logOut() {
+    removeUser() {
         localStorage.removeItem('user');
-        this.router.navigate(['/']);
     }
 }

@@ -17,7 +17,7 @@ export class AuthorizedComponent {
             {icon: faUpload, link: 'uploads'},
             {icon: faCog, link: 'settings'}
         ];
-        if (service.getRole() === "Admin")
+        if (service.getUserRole() === "Admin")
             this.addAdminRoute();
     }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { SessionService } from "../core/services/session.service";
 import { UserService } from "../core/services/user.service";
 import { User } from "../models/user.model";
@@ -12,7 +13,7 @@ export class SettingsComponent implements OnInit {
     loading = true;
     error = false;
 
-    constructor(private sessionService: SessionService, private userService: UserService) {
+    constructor(private sessionService: SessionService, private userService: UserService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -30,6 +31,7 @@ export class SettingsComponent implements OnInit {
     }
 
     onLogOut() {
-        this.sessionService.logOut();
+        this.sessionService.removeUser();
+        this.router.navigate(['/']);
     }
 }

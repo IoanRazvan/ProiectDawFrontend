@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, combineLatest, filter, map, mergeAll, Observable, of, ReplaySubject, share, startWith, Subject, tap, timestamp } from "rxjs";
+import { BehaviorSubject, combineLatest, filter, map, mergeAll, Observable, of, ReplaySubject, scan, share, startWith, Subject, tap, timestamp } from "rxjs";
 import { BookService } from "src/app/core/services/book.service";
 import { GenreService } from "src/app/core/services/genre.service";
 import { Book } from "src/app/models/book.model";
@@ -16,57 +16,60 @@ interface IPageOperation extends Function {
     (page: Page<Book>): Page<Book>;
 }
 
+interface IParamsOperation extends Function {
+    (params: UploadsParams, serverPage?: Page<Book>): UploadsParams;
+}
+
 @Injectable()
 export class UploadsService {
-    public readonly searchParams: Subject<UploadsParams> = new ReplaySubject<UploadsParams>(1);
+    private paramsOperation: Subject<IParamsOperation> = new ReplaySubject<IParamsOperation>(1);
+
+    public readonly searchParams: Observable<UploadsParams> = new ReplaySubject<UploadsParams>(1);
 
     private pageOperation: Subject<IPageOperation> = new Subject<IPageOperation>();
 
-    public loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+    public readonly loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     private cachedServerPage !: Page<Book>;
-
-    private cachedSearchParams !: UploadsParams;
 
     private serverPage: Observable<Page<Book>>;
 
     public readonly clientPage: Observable<Page<Book>>;
 
     constructor(private bookService: BookService, private genreService: GenreService, private router: Router) {
-        this.searchParams.pipe(
-            tap(() => this.loading.next(true))
-        ).subscribe((params) => {
-            this.cachedSearchParams = params;
-        });
+        this.searchParams = this.paramsOperation.pipe(
+            scan((acc: UploadsParams, val: IParamsOperation) => val(acc), { pageNumber: 0, query: '', forceRequest: false }),
+            share({ connector: () => new ReplaySubject(1) })
+        );
 
         this.serverPage = combineLatest([this.searchParams.pipe(timestamp()), this.pageOperation.pipe(startWith(page => page), timestamp())]).pipe(
-                filter(([params, operation]) => {
-                    if (this.queryIsNotCached(params.value) || operation.timestamp > params.timestamp || params.value.forceRequest)
-                        return true;
-                    return false;
-                }),
-                map(([params, operation]) => {
-                    if (params.timestamp >= operation.timestamp) {
-                        const requestedPage = toServerPageNumber(params.value.pageNumber);
-                        return this.bookService.getUploadedBooksByTitle(params.value.query, requestedPage, environment.serverPageSize);
-                    }
-                    else {
-                        return of(operation.value(this.cachedServerPage));
-                    }
-                }),
-                mergeAll(),
-                share({ connector: () => new ReplaySubject(1) })
-            );
+            filter(([params, operation]) => {
+                if (this.queryIsNotCached(params.value) || operation.timestamp > params.timestamp || params.value.forceRequest)
+                    return true;
+                return false;
+            }),
+            map(([params, operation]) => {
+                if (params.timestamp >= operation.timestamp) {
+                    const requestedPage = toServerPageNumber(params.value.pageNumber);
+                    return this.bookService.getUploadedBooksByTitle(params.value.query, requestedPage, environment.serverPageSize);
+                }
+                else {
+                    return of(operation.value(this.cachedServerPage));
+                }
+            }),
+            mergeAll(),
+            share({ connector: () => new ReplaySubject(1) })
+        );
 
         this.serverPage.subscribe((page) => this.cachedServerPage = page);
 
         this.clientPage = combineLatest([this.searchParams, this.serverPage]).pipe(
-                filter(([params]) => !this.cachedServerPage || !this.queryIsNotCached(params)),
-                map(([params, page]) => toClientPage(params, page)),
-                tap(() => this.loading.next(false)),
-                share({ connector: () => new ReplaySubject(1) })
-            );
-                
+            filter(([params]) => !this.cachedServerPage || !this.queryIsNotCached(params)),
+            map(([params, page]) => toClientPage(params, page)),
+            tap(() => this.loading.next(false)),
+            share({ connector: () => new ReplaySubject(1) })
+        );
+
         this.clientPage.subscribe({
             error: () => this.loading.next(false)
         })
@@ -127,13 +130,16 @@ export class UploadsService {
             if (this.cachedServerPage.lastPageNumber !== this.cachedServerPage.currentPageNumber)
                 this.remakeLastRequest();
             else {
-                const currentClientPage = toClientPage(this.cachedSearchParams, this.cachedServerPage);
-                this.pageOperation.next(this.createDeleteBookOpeartion(bookId));
-                if (currentClientPage.currentPageNumber === currentClientPage.lastPageNumber) {
-                    if (currentClientPage.result.length - 1 === 0 && this.cachedSearchParams.pageNumber !== 0) {
-                        this.changePage(currentClientPage.currentPageNumber - 1);
+                this.paramsOperation.next((params: UploadsParams) => {
+                    const currentClientPage = toClientPage(params, this.cachedServerPage);
+                    if (currentClientPage.currentPageNumber === currentClientPage.lastPageNumber) {
+                        if (currentClientPage.result.length - 1 === 0 && params.pageNumber !== 0) {
+                            return { pageNumber: params.pageNumber - 1, query: params.query, forceRequest: false };
+                        }
                     }
-                }
+                    return params;
+                });
+                this.pageOperation.next(this.createDeleteBookOpeartion(bookId));
             }
         });
         return sharedObs;
@@ -147,15 +153,15 @@ export class UploadsService {
     }
 
     private remakeLastRequest() {
-        this.setPageAndQuery(this.cachedSearchParams.pageNumber, this.cachedSearchParams.query, true);
+        this.paramsOperation.next(params => ({ pageNumber: params.pageNumber, query: params.query, forceRequest: true }));
     }
 
     setPageAndQuery(pageNumber: number, query: string, forceRequest: boolean = false) {
-        this.searchParams.next({ pageNumber, query, forceRequest });
+        this.paramsOperation.next(() => ({ pageNumber, query, forceRequest }));
     }
 
     changePage(pageNumber: number) {
-        this.setPageAndQuery(pageNumber, this.cachedSearchParams?.query || '');
+        this.paramsOperation.next(params => ({ pageNumber, query: params.query, forceRequest: false }))
     }
 
     setQuery(query: string) {

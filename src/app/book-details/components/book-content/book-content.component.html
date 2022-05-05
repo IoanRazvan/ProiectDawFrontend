@@ -1,11 +1,5 @@
-<div class="container">
-    <div class="row justify-content-center mt-3">
-        <div class="col-auto">
-            <pdf-viewer [src]="pdfSrc" [(page)]="pageModel" [render-text]="true" [original-size]="false" style="width: 520px; height: 550px">
-            </pdf-viewer>
-        </div>
-        <div class="col-auto">
-            <button class="btn btn-primary" (click)="onBack()">Back</button>
-        </div>
-    </div>
+<div class="row justify-content-center">
+    <pdf-viewer class="bookContent" [src]="pdfSrc" [(page)]="pageModel" [render-text]="true" [original-size]="false">
+    </pdf-viewer>
 </div>
+<button class="btn btn-primary" (click)="onBack()">Back</button>
