@@ -1,31 +1,38 @@
-<div class="container mt-2 col-md-8">
-    <div class="card card-body">
-        <legend>Sign Up</legend>
-        <form class="row gy-3">
-            <div class="col-md-6">
-                <form-input [name]="'firstName'" [inputModel]="form.controls['firstName']"
-                    [errorMessage]="validationConstants.REQUIRED"></form-input>
-            </div>
-            <div class="col-md-6">
-                <form-input [name]="'lastName'" [inputModel]="form.controls['lastName']"
-                    [errorMessage]="validationConstants.REQUIRED"></form-input>
-            </div>
-            <form-input [name]="'email'" [inputModel]="form.controls['email']"
-                [errorMessage]="validationConstants.EMAIL"></form-input>
-            <div class="col-md-6">
-                <form-input [name]="'password'" [inputModel]="form.controls['password']" [type]="'password'"
-                    [errorMessage]="validationConstants.MIN_LENGTH | formatValidationMessage:'6'"></form-input>
-            </div>
-            <div class="col-md-6">
-                <form-input [name]="'confirmPassword'" [inputModel]="form.controls['confirmPassword']"
-                    [type]="'password'" [errorMessage]="validationConstants.SAME | formatValidationMessage:'password'">
-                </form-input>
-            </div>
-            <dismissable-alert *ngIf="form.errors?.['message']" [text]="form.errors?.['message']" (onDismiss)="form.setErrors(null)"></dismissable-alert>
-            <div class="col-auto">
-                <submit-button [disabled]="form.invalid" [submitting]="submitting" (onSubmit)="onSubmit()">
-                </submit-button>
-            </div>
-        </form>
+<div class="row justify-content-end gy-0 gx-0">
+    <img src="./assets/images/landing_light.svg" style="position: fixed; filter: blur(8px);" class="img-fluid col-md-8"
+        alt="background">
+</div>
+<div style="height: 100vh" class="row gx-0 gy-0 align-items-center justify-content-center">
+    <div class="col-md-7">
+        <div class="card card-body">
+            <legend class="mb-2">Sign Up</legend>
+            <form class="row gy-3">
+                <div class="col-md-6 mb-2">
+                    <form-input [name]="'firstName'" [inputModel]="form.controls['firstName']"
+                        [errorMessage]="validationConstants.REQUIRED"></form-input>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <form-input [name]="'lastName'" [inputModel]="form.controls['lastName']"
+                        [errorMessage]="validationConstants.REQUIRED"></form-input>
+                </div>
+                <form-input class="mb-2" [name]="'email'" [inputModel]="form.controls['email']"
+                    [errorMessage]="validationConstants.EMAIL"></form-input>
+                <div class="col-md-6 mb-2">
+                    <form-input [name]="'password'" [inputModel]="form.controls['password']" [type]="'password'"
+                        [errorMessage]="validationConstants.MIN_LENGTH | formatValidationMessage:'6'"></form-input>
+                </div>
+                <div class="col-md-6">
+                    <form-input [name]="'confirmPassword'" [inputModel]="form.controls['confirmPassword']"
+                        [type]="'password'" [errorMessage]="validationConstants.SAME | formatValidationMessage:'password'">
+                    </form-input>
+                </div>
+                <dismissable-alert *ngIf="form.errors?.['message']" [text]="form.errors?.['message']"
+                    (onDismiss)="form.setErrors(null)"></dismissable-alert>
+                <div class="col-auto">
+                    <submit-button [disabled]="form.invalid" [submitting]="submitting" (onSubmit)="onSubmit()">
+                    </submit-button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
